@@ -55,9 +55,9 @@ does not create additional observations.
 
 ## Try it
 
-Published version 0.1.0 installs with `python -m pip install pytest-codex`. The new
-version checks and examples are in the upcoming 0.2.0 source checkout; clone it
-and run `python -m pip install .` to try them.
+Version 0.2.0 is published on PyPI. Install it with
+`python -m pip install pytest-codex`. Clone the repository to try the included
+recordings and example tests.
 
 - [Repository and quick start](https://github.com/Czj027/pytest-codex)
 - [Recorded evidence and limits](../evidence.md)

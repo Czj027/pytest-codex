@@ -46,8 +46,8 @@ python -m pytest tests/agent --codex-bin=not-installed
 
 ## 开始使用
 
-已发布的 0.1.0 可以通过 `python -m pip install pytest-codex` 安装。本文的版本校验和新增示例位于
-待发布的 0.2.0 源码中，可以克隆仓库后执行 `python -m pip install .`。
+0.2.0 已在 PyPI 发布，可以通过 `python -m pip install pytest-codex` 安装。
+克隆仓库后即可运行自带录制和示例测试。
 
 - [项目与快速开始](https://github.com/Czj027/pytest-codex)
 - [真实录制与验证范围](../evidence.md)

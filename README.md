@@ -25,8 +25,7 @@ is included and passes offline.*
 python -m pip install pytest-codex
 ```
 
-PyPI currently provides 0.1.0. Version-checked replay below is new in the
-upcoming 0.2.0; install this checkout with `python -m pip install .` to try it.
+Version 0.2.0 is available on PyPI, including version-checked replay.
 
 Point pytest at the small project you want Codex to work on:
 

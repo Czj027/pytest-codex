@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 — unreleased
+## 0.2.0 — 2026-10-22
 
 - Add offline CLI version pins and an opt-in installed-version check; require an
   explicit model for version-checked runs and validate before replay writes or model calls.

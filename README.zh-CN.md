@@ -22,8 +22,7 @@
 python -m pip install pytest-codex
 ```
 
-PyPI 当前版本为 0.1.0；下述版本校验是待发布 0.2.0 的新增功能，
-可在本仓库执行 `python -m pip install .` 试用。
+0.2.0 已在 PyPI 发布，包含下述版本校验功能。
 
 ```toml
 # pyproject.toml：指定让 Codex 操作的小项目

@@ -5,8 +5,8 @@ Start with one small, nonsecret fixture project. For MCP integration use
 as an executable starting point. The server uses only Python's standard library.
 `catalog.lookup` is read-only and needs no remote account.
 
-1. Install pytest-codex (version pinning below requires 0.2.0, currently available
-   from this source checkout). Copy the MCP fixture into `tests/agent/project/`.
+1. Install `pytest-codex>=0.2.0` from PyPI. Copy the MCP fixture into
+   `tests/agent/project/`.
 2. Copy the test into `tests/agent/test_catalog.py` and point its marker's `project`
    to that fixture. Keep an explicit model ID available to your Codex account.
 3. Record intentionally:
