@@ -7,6 +7,7 @@
 - Honor Git-ignored untracked inputs when copying a source repository; fail closed
   when its ignore rules cannot be read.
 - Resolve relative CLI launchers before changing the execution directory.
+- Support long recording filenames, Git object paths and owned-tree cleanup on Windows.
 - Dogfood this project's AGENTS.md across two models and repeated fresh attempts.
 - Include reviewed real MCP and Skill recordings, all replayable offline.
 - Add a daily latest-CLI protocol check against a local fixture with no model calls,

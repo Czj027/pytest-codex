@@ -9,7 +9,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from .paths import project_path
+from .paths import native_path, project_path
 from .run import Run
 from .snapshot import Diff, tree_hash
 
@@ -84,7 +84,7 @@ def save_cassette(path: Path, key: str, run: Run, version: str) -> None:
         "returncode": run.returncode,
         "stderr": portable(run.stderr),
     }
-    path = Path(path)
+    path = native_path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix=".cassette-", dir=path.parent)
     try:
@@ -101,7 +101,7 @@ def load_cassette(
     path: Path, key: str, project: Path, *, expected_version: str | None = None
 ) -> Run:
     try:
-        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        data = json.loads(native_path(path).read_text(encoding="utf-8"))
         if data.get("schema") != 1 or data.get("key") != key:
             raise ValueError("schema or input key does not match")
         if expected_version is not None:

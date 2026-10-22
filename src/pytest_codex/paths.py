@@ -1,6 +1,16 @@
 """Validate untrusted project-relative paths before reading or writing."""
 
+import os
 from pathlib import Path, PurePosixPath, PureWindowsPath
+
+
+def native_path(path: Path) -> Path:
+    """Use Windows' extended path syntax for filesystem I/O, not authorization."""
+    path = Path(path).resolve()
+    value = str(path)
+    if os.name == "nt" and not value.startswith("\\\\?\\"):
+        value = "\\\\?\\UNC\\" + value[2:] if value.startswith("\\\\") else "\\\\?\\" + value
+    return Path(value)
 
 
 def project_path(root: Path, name: str) -> Path:

@@ -73,3 +73,14 @@ def test_missing_and_malicious_cassette_fail_before_mutation(tmp_path):
     with pytest.raises(CassetteError):
         load_cassette(path, "k", tmp_path)
     assert not (tmp_path.parent / "escape").exists()
+
+
+def test_recording_roundtrip_with_long_windows_filename(tmp_path):
+    from pytest_codex.cleanup import remove_tree
+
+    directory = tmp_path / ("x" * max(1, 230 - len(str(tmp_path)) - 1))
+    path = directory / ("recording-" + "y" * 70 + ".json")
+    run = Run([{"type": "turn.completed"}], tmp_path)
+    save_cassette(path, "key", run, "codex-cli test")
+    assert load_cassette(path, "key", tmp_path).succeeded
+    remove_tree(directory, tmp_path)

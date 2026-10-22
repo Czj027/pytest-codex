@@ -100,6 +100,7 @@ def make_sandbox(source: Path, target: Path, files: dict[str, str] | None = None
         path.write_text(content, encoding="utf-8", newline="")
     for args in (
         ["init", "-q"],
+        ["config", "core.longpaths", "true"],
         ["add", "--all"],
         [
             "-c",
@@ -116,7 +117,7 @@ def make_sandbox(source: Path, target: Path, files: dict[str, str] | None = None
         ],
     ):
         subprocess.run(
-            ["git", *args],
+            ["git", "-c", "core.longpaths=true", *args],
             cwd=target,
             check=True,
             capture_output=True,

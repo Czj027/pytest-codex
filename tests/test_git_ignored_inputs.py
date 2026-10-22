@@ -68,3 +68,18 @@ def test_explicit_project_below_ignored_parent_is_a_standalone_fixture(tmp_path)
     (source / "input.txt").write_text("explicit input", encoding="utf-8")
     target = make_sandbox(source, tmp_path / "copy")
     assert (target / "input.txt").read_text(encoding="utf-8") == "explicit input"
+
+
+@pytest.mark.parametrize("root_length", [215, 235])
+def test_sandbox_baseline_supports_deep_windows_paths(tmp_path, root_length):
+    source = tmp_path / "source"
+    source.mkdir()
+    (source / "input.txt").write_text("public", encoding="utf-8")
+    # The project itself fits MAX_PATH; Git object filenames cross that boundary.
+    target = tmp_path / ("x" * max(1, root_length - len(str(tmp_path)) - 1))
+    make_sandbox(source, target)
+    assert (target / "input.txt").read_text(encoding="utf-8") == "public"
+    assert subprocess.check_output(["git", "status", "--porcelain"], cwd=target) == b""
+    from pytest_codex.cleanup import remove_tree
+
+    remove_tree(target, tmp_path)

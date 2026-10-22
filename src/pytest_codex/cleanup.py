@@ -5,6 +5,8 @@ import shutil
 import stat
 from pathlib import Path
 
+from .paths import native_path
+
 
 def remove_tree(path: Path, owner: Path) -> None:
     path, owner = Path(path).absolute(), Path(owner).resolve()
@@ -18,4 +20,5 @@ def remove_tree(path: Path, owner: Path) -> None:
         os.chmod(name, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
         function(name)
 
-    shutil.rmtree(path, onerror=readonly)
+    # Only extend after ownership checks. Git object paths can exceed MAX_PATH.
+    shutil.rmtree(native_path(resolved), onerror=readonly)
