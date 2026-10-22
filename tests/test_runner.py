@@ -62,6 +62,15 @@ def test_timeout_kills_process_and_cleans_home(tmp_path, monkeypatch, fake_cli):
     assert not (tmp_path / "result.txt").exists()
 
 
+def test_relative_cli_path_survives_execution_directory_change(tmp_path, monkeypatch, fake_cli):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("pytest_codex.runner.shutil.which", lambda binary: "fake_codex.py")
+    project = tmp_path / "other-working-directory"
+    project.mkdir()
+    run = execute("hello", project, codex_bin="fake_codex.py")
+    assert run.succeeded and run.read("result.txt") == "done"
+
+
 @pytest.mark.parametrize(
     "options",
     [

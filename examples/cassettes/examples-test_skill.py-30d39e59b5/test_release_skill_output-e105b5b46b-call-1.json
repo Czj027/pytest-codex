@@ -1,0 +1,104 @@
+{
+  "schema": 1,
+  "key": "00bdda35d8c559dfa07d554e21f3620e25f98ea4533ae2360fa0c2c9dcd5a5b0",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "recorded-example"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "I’m applying the brief-release instructions: I’ll read `release.json` and write `RELEASE.md` in the required format."
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content -Raw release.json; Get-Location'",
+        "aggregated_output": "",
+        "exit_code": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content -Raw release.json; Get-Location'",
+        "aggregated_output": "{\"version\":\"0.2.0\",\"changes\":[\"Version-checked replay\",\"Real MCP example\"]}\n\r\n\r\nPath\r\n----\r\n<PROJECT>\r\n\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_2",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"@'\n# Release 0.2.0\n\n- Version-checked replay\n- Real MCP example\n\nReview: offline replay verified\n'@ | Set-Content -NoNewline RELEASE.md\"",
+        "aggregated_output": "",
+        "exit_code": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"@'\n# Release 0.2.0\n\n- Version-checked replay\n- Real MCP example\n\nReview: offline replay verified\n'@ | Set-Content -NoNewline RELEASE.md\"",
+        "aggregated_output": "",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_3",
+        "type": "agent_message",
+        "text": "Created [RELEASE.md](/<PROJECT>/RELEASE.md)."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 43790,
+        "cached_input_tokens": 35328,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 209,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [
+      "RELEASE.md"
+    ],
+    "modified": [],
+    "deleted": []
+  },
+  "files": {
+    "RELEASE.md": {
+      "data": "IyBSZWxlYXNlIDAuMi4wCgotIFZlcnNpb24tY2hlY2tlZCByZXBsYXkKLSBSZWFsIE1DUCBleGFtcGxlCgpSZXZpZXc6IG9mZmxpbmUgcmVwbGF5IHZlcmlmaWVk",
+      "mode": 438
+    }
+  },
+  "returncode": 0,
+  "stderr": "",
+  "sanitization": {
+    "thread_id": "anonymized",
+    "stderr": "nonbehavioral startup diagnostics omitted; original kept privately",
+    "events_and_file_payloads": "reviewed; behavior and assertions unchanged"
+  }
+}

@@ -18,6 +18,19 @@ class CassetteError(RuntimeError):
     pass
 
 
+def check_cli_version(recorded, expected: str) -> None:
+    """Compare portable version strings without launching an installed CLI."""
+
+    def normalize(value):
+        return value.removeprefix("codex-cli ").strip() if isinstance(value, str) else None
+
+    if not normalize(expected) or normalize(recorded) != normalize(expected):
+        raise CassetteError(
+            f"CLI version mismatch: recorded={recorded!r}, expected={expected!r}. "
+            "Re-record with --codex-record after checking your version pin."
+        )
+
+
 def cassette_key(prompt, model, config, sandbox, inputs, isolation="full") -> str:
     payload = {
         "prompt": prompt,
@@ -84,11 +97,15 @@ def save_cassette(path: Path, key: str, run: Run, version: str) -> None:
             os.unlink(temporary)
 
 
-def load_cassette(path: Path, key: str, project: Path) -> Run:
+def load_cassette(
+    path: Path, key: str, project: Path, *, expected_version: str | None = None
+) -> Run:
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         if data.get("schema") != 1 or data.get("key") != key:
             raise ValueError("schema or input key does not match")
+        if expected_version is not None:
+            check_cli_version(data.get("codex_version"), expected_version)
         changes = Diff.from_dict(data["diff"])
         if not all(
             isinstance(names, list) and all(isinstance(n, str) for n in names)

@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 — unreleased
+
+- Add offline CLI version pins and an opt-in installed-version check; require an
+  explicit model for version-checked runs and validate before replay writes or model calls.
+- Honor Git-ignored untracked inputs when copying a source repository; fail closed
+  when its ignore rules cannot be read.
+- Resolve relative CLI launchers before changing the execution directory.
+- Dogfood this project's AGENTS.md across two models and repeated fresh attempts.
+- Include reviewed real MCP and Skill recordings, all replayable offline.
+- Add a daily latest-CLI protocol check against a local fixture with no model calls,
+  plus an opt-in live CI template.
+- Add a reproducible failure animation, bilingual worked articles and an integration guide.
+
 ## 0.1.0 — 2026-10-22
 
 - Filter command assertions by exit status with `run.ran(pattern, ok=True/False)`.

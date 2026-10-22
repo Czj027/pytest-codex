@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from .cassette import cassette_key, load_cassette, save_cassette
+from .cassette import cassette_key, check_cli_version, load_cassette, save_cassette
 from .cleanup import remove_tree
 from .runner import cli_version, execute
 from .sandbox import make_sandbox
@@ -31,9 +31,19 @@ def pytest_addoption(parser):
     group.addoption("--codex-live", action="store_true", help="alias for --codex-mode=live")
     group.addoption("--codex-bin", default="codex", help="Codex CLI executable")
     group.addoption("--codex-model", default=None, help="model passed to Codex")
+    group.addoption(
+        "--codex-cli-version", default=None, help="expected recording CLI version (offline check)"
+    )
+    group.addoption(
+        "--codex-check-cli",
+        action="store_true",
+        help="check recordings against installed codex --version; requires an explicit model",
+    )
     parser.addini("codex_project", "project directory relative to pytest root", default=".")
     parser.addini("codex_isolation", "none, config or full", default="full")
     parser.addini("codex_timeout", "timeout in seconds for each execution", default="300")
+    parser.addini("codex_cli_version", "expected CLI version for recording/replay", default="")
+    parser.addini("codex_model", "explicit model, overridden by --codex-model or exec", default="")
 
 
 def pytest_configure(config):
@@ -116,7 +126,27 @@ class Codex:
         self._total_calls += 1
         target = self.temp_root / f"run-{self._total_calls}"
         root = make_sandbox(source, target, files)
-        model = model if model is not None else settings.getoption("codex_model")
+        model = (
+            model
+            if model is not None
+            else (settings.getoption("codex_model") or settings.getini("codex_model") or None)
+        )
+        expected_version = (
+            settings.getoption("codex_cli_version") or settings.getini("codex_cli_version") or None
+        )
+        check_local = settings.getoption("codex_check_cli")
+        if (expected_version or check_local) and not model:
+            raise pytest.UsageError(
+                "version-checked runs require an explicit model: use --codex-model, "
+                "codex_model, or exec(model=...) so default model changes cannot go unnoticed"
+            )
+        binary = settings.getoption("codex_bin")
+        if check_local:
+            if self._version is None:
+                self._version = cli_version(binary)
+            if expected_version is not None:
+                check_cli_version(self._version, expected_version)
+            expected_version = self._version
         isolation = settings.getini("codex_isolation")
         key = cassette_key(prompt, model, config or {}, sandbox, snapshot(root), isolation)
         node = self.request.node
@@ -137,10 +167,11 @@ class Codex:
         elif settings.getoption("codex_live"):
             mode = "live"
         if mode == "replay" or mode == "auto" and path.exists():
-            return load_cassette(path, key, root)
-        binary = settings.getoption("codex_bin")
-        if mode in {"record", "auto"} and self._version is None:
+            return load_cassette(path, key, root, expected_version=expected_version)
+        if (mode in {"record", "auto"} or expected_version) and self._version is None:
             self._version = cli_version(binary)
+        if expected_version is not None:
+            check_cli_version(self._version, expected_version)
         run = execute(
             prompt,
             root,

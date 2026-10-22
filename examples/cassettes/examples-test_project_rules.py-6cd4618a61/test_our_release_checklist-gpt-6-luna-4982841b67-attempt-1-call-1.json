@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "key": "ba6a85c2fd227d958fdb6049c47b4f09c753fb1cbf4118e7b29ab0b71dc6aeef",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "recorded-example"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "{\"package\":\"pytest-codex\",\"checks\":[\"offline tests\",\"lint\",\"build\",\"recording privacy\"]}"
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 14467,
+        "cached_input_tokens": 11776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 26,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [],
+    "modified": [],
+    "deleted": []
+  },
+  "files": {},
+  "returncode": 0,
+  "stderr": "",
+  "sanitization": {
+    "thread_id": "anonymized",
+    "stderr": "nonbehavioral startup diagnostics omitted; original kept privately",
+    "events_and_file_payloads": "reviewed; behavior and assertions unchanged"
+  }
+}

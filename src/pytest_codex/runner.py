@@ -27,6 +27,7 @@ def binary_command(binary: str = "codex") -> list[str]:
         if not candidate.is_file():
             raise FileNotFoundError(f"Codex executable not found: {binary}")
         found = str(candidate)
+    found = str(Path(found).resolve())
     if found.lower().endswith(".py"):
         return [sys.executable, found]
     if found.lower().endswith(".ps1"):

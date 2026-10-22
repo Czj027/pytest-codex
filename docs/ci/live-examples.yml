@@ -1,0 +1,30 @@
+# Copy to .github/workflows/live-examples.yml only when you want fresh model runs.
+# Leave CODEX_LIVE_ENABLED unset until a dedicated runner, login and quota are ready.
+name: Opt-in live behavior checks
+on:
+  schedule:
+    - cron: '53 3 * * *'
+  workflow_dispatch:
+    inputs:
+      confirm_quota:
+        description: 'Run six model turns using the dedicated runner login'
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+jobs:
+  live:
+    if: vars.CODEX_LIVE_ENABLED == 'true' && (github.event_name == 'schedule' || inputs.confirm_quota)
+    runs-on: [self-hosted, codex-live]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - run: python -m pip install .
+      - name: Fresh observations (not replay)
+        run: python -m pytest examples/test_project_rules.py examples/test_mcp.py examples/test_skill.py --codex-live -o codex_timeout=120 -q
+# No PR trigger, raw event artifact upload, or automatic recording commit.
+# Use a dedicated machine/account without unrelated private files. Review failure
+# logs before making them public. Job/turn timeouts limit duration, not token spend.

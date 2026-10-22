@@ -9,7 +9,7 @@
 把 agent 规则写成 pytest 断言，检查实际命令、文件改动和 MCP 调用。
 真实执行录一次，CI 回放时 **不调用模型**。
 
-![pytest 检出本应使用 uv 却执行 pip 的行为](https://raw.githubusercontent.com/Czj027/pytest-codex/main/docs/assets/failure.png)
+![pytest 检出本应使用 uv 却执行 pip 的行为](https://raw.githubusercontent.com/Czj027/pytest-codex/main/docs/assets/failure.gif)
 
 *图中是合成命令轨迹产生的真实 pytest 失败输出，制作时没有调用模型。
 项目另附一份真实执行、可离线通过的 [录制示例](examples/test_conventions.py)。*
@@ -21,6 +21,9 @@
 ```console
 python -m pip install pytest-codex
 ```
+
+PyPI 当前版本为 0.1.0；下述版本校验是待发布 0.2.0 的新增功能，
+可在本仓库执行 `python -m pip install .` 试用。
 
 ```toml
 # pyproject.toml：指定让 Codex 操作的小项目
@@ -73,11 +76,34 @@ def test_dependency_convention(codex):
 git clone https://github.com/Czj027/pytest-codex.git
 cd pytest-codex
 python -m pip install .
-python -m pytest examples/test_conventions.py --codex-bin=not-installed -q
+python -m pytest examples --codex-bin=not-installed -q
 ```
 
 真实录制检查了 uv 成功执行、依赖声明更新和 legacy 未变；故意指定不存在的 CLI，
 确认回放不会启动 Codex。
+
+另有本项目 [AGENTS.md](AGENTS.md) 的双模型各两次实测、[本地 MCP 调用](examples/test_mcp.py)
+和 [Skill 文件输出](examples/test_skill.py)。这只是小规模冒烟验证，不能据此估计模型的普遍可靠性。
+运行条件与结果见 [验证记录](docs/evidence.md)。
+
+## 防止误用过期录制
+
+固定模型和录制 CLI 版本，CI 仍然可以完全离线回放：
+
+```toml
+[tool.pytest.ini_options]
+codex_model = "your-model-id"
+codex_cli_version = "0.163.0"
+```
+
+本地还可添加 `--codex-check-cli`，与已安装的 `codex --version` 比较。
+版本或输入不匹配会在恢复文件前失败，严格校验要求显式指定模型。
+默认回放保持离线，不要求安装 CLI。同名模型的服务端更新无法自动发现，检验当前行为仍需重录。
+
+[每日最新 CLI 检查](.github/workflows/cli-compat.yml) 使用本地固定响应端点，不需要登录、不调用模型。
+需要定期测真实模型时，使用[默认关闭的实时 CI 模板](docs/ci/live-examples.yml)。
+
+[接入其他项目](docs/integration.md) · [中文文章：你的 AGENTS.md 真的生效了吗？](docs/articles/testing-agents.zh-CN.md)
 
 API、模式、Windows 设置、隐私与重复测试边界见 [完整参考](docs/reference.zh-CN.md)。
 `run.succeeded` 只表示 CLI 回合完成，实际工作要用命令状态、文件内容断言验收。

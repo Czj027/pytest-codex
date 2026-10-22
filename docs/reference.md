@@ -132,12 +132,16 @@ Replay repeats historical observations, not fresh reliability experiments.
 | `--codex-mode=auto` | Replay existing; run and record missing only; stale recordings fail |
 | `--codex-bin=PATH` | Codex executable; unused in replay |
 | `--codex-model=NAME` | Default model, overridden by `exec(model=...)` |
+| `--codex-cli-version=VERSION` | Require recording metadata to match this CLI version; stays offline |
+| `--codex-check-cli` | Compare against installed `codex --version`; never calls a model |
 
 ```toml
 [tool.pytest.ini_options]
 codex_project = "sample_repo"
 codex_isolation = "full"
 codex_timeout = "300"
+codex_model = "your-model-id"       # optional, required for version-checked runs
+codex_cli_version = "0.163.0"       # optional offline version pin
 ```
 
 `none` inherits user configuration; `config` adds `--ignore-user-config`; `full`
@@ -160,8 +164,15 @@ access must be explicitly requested. A copied project alone is not a security sa
 Cassettes live beside the test module under
 `cassettes/<module-slug>/<test-slug>[-attempt-N]-call-N.json`.
 The fingerprint covers prompt, requested model, config, sandbox, isolation and
-input file contents. CLI version is stored as metadata; offline replay does not
-invoke the CLI to compare versions. Re-record after a CLI or default-model upgrade.
+input file contents. `--codex-cli-version` (or ini `codex_cli_version`) compares
+recorded CLI metadata with a committed version pin, entirely offline.
+`--codex-check-cli` instead runs the installed CLI's `--version` and checks against
+it; it never starts a model turn. Combining both also checks the installed version
+against the pin. Version-checked runs require an explicit model (argument, option
+or ini `codex_model`). Version checks run before replayed file writes and before a
+record/live model call. Update the pin and re-record intentionally when upgrading.
+Without either option, old recordings remain compatible and replay needs no CLI.
+An unchanged model ID cannot reveal provider-side model updates.
 Timeout and inherited environment are not fingerprinted.
 
 Binary changes are stored as base64 and deleted files are removed on replay.
@@ -172,14 +183,20 @@ Only temporary project and home prefixes in event strings are replaced with
 `<PROJECT>` and `<HOME>`. **Review recordings before committing:** command output,
 file payloads and MCP results can contain secrets and are not automatically scrubbed.
 Use a small, sanitized project. Copies exclude `.git`, common environments/caches,
-`cassettes`, `dist` and `build`.
+`cassettes`, `dist` and `build`. For a source inside a Git repository, Git-ignored
+untracked files are excluded too, including nested rules and negations. A tracked
+file stays an input even if an ignore pattern matches it. An explicitly selected
+project under a Git-ignored parent (for example a temporary test fixture) is treated
+as a standalone fixture; ancestor ignore patterns do not remove all its inputs.
+`files={...}` overrides
+are explicit inputs and can add otherwise excluded files; never put secrets there.
 
 ## Development
 
 ```console
 python -m pip install -e . ruff build twine
 python -m pytest -q
-python -m pytest examples/test_conventions.py --codex-bin=not-installed -q
+python -m pytest examples --codex-bin=not-installed -q
 python -m ruff check src tests examples
 python -m ruff format --check src tests examples
 python -m build
@@ -187,7 +204,9 @@ python -m twine check dist/*
 ```
 
 CI defines Python 3.10–3.13 × Linux/macOS/Windows and a pytest 7.0 compatibility job.
-All CI tests replay or use a local fake CLI; they need no model calls or Codex login.
-A configured matrix does not mean the remote jobs have already run.
+Ordinary CI tests replay or use a local fake CLI. The daily latest-CLI workflow
+uses the real CLI against a local canned Responses endpoint. Neither needs model
+calls or Codex login. See [evidence](evidence.md) for the distinction between
+protocol checks and fresh behavior, and [the opt-in live template](ci/live-examples.yml).
 
 Independent community project, not an official OpenAI product.

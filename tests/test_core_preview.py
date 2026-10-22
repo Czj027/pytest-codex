@@ -1,6 +1,7 @@
 """Smoke tests for the public functionality shipped in the initial release."""
 
 import importlib
+import importlib.metadata
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,7 +10,7 @@ from pathlib import Path
 class CorePreviewTests(unittest.TestCase):
     def test_package_import_and_event_trace(self):
         package = importlib.import_module("pytest_codex")
-        self.assertEqual(package.__version__, "0.1.0")
+        self.assertEqual(package.__version__, importlib.metadata.version("pytest-codex"))
         events = importlib.import_module("pytest_codex.events")
         trace = events.parse_jsonl(
             '{"type":"item.completed","item":{"id":"1",'

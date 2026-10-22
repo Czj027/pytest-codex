@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "key": "ea2e9842202d3f929485916579d283dd3f87f7aeb8050e2d9738bb1cfd987b97",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "recorded-example"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "I’ll query the project catalog tool and report the mode from its result."
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_1",
+        "type": "mcp_tool_call",
+        "server": "catalog",
+        "tool": "lookup",
+        "arguments": {
+          "project": "pytest-codex"
+        },
+        "result": null,
+        "error": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "mcp_tool_call",
+        "server": "catalog",
+        "tool": "lookup",
+        "arguments": {
+          "project": "pytest-codex"
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"purpose\": \"Test Codex behavior with pytest\", \"mode\": \"offline-first\"}"
+            }
+          ],
+          "structured_content": null
+        },
+        "error": null,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "agent_message",
+        "text": "pytest-codex is in **offline-first** mode."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 71382,
+        "cached_input_tokens": 61312,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 136,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [],
+    "modified": [],
+    "deleted": []
+  },
+  "files": {},
+  "returncode": 0,
+  "stderr": "",
+  "sanitization": {
+    "thread_id": "anonymized",
+    "stderr": "nonbehavioral startup diagnostics omitted; original kept privately",
+    "events_and_file_payloads": "reviewed; behavior and assertions unchanged"
+  }
+}

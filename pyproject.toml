@@ -1,6 +1,6 @@
 [project]
 name = "pytest-codex"
-version = "0.1.0"
+version = "0.2.0"
 description = "Test Codex behavior with pytest fixtures, offline record/replay, and pass-rate checks."
 readme = "README.md"
 license = "MIT"
@@ -31,7 +31,7 @@ build-backend = "hatchling.build"
 packages = ["src/pytest_codex"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src/pytest_codex", "/tests", "/examples", "/docs", "/README.md", "/README.zh-CN.md", "/CHANGELOG.md", "/LICENSE", "/pyproject.toml", "/.github", "/.gitattributes"]
+include = ["/src/pytest_codex", "/tests", "/examples", "/docs", "/AGENTS.md", "/README.md", "/README.zh-CN.md", "/CHANGELOG.md", "/LICENSE", "/pyproject.toml", "/.github", "/.gitattributes"]
 
 [dependency-groups]
 dev = ["ruff>=0.6", "build>=1", "twine>=6"]

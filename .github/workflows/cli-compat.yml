@@ -1,0 +1,36 @@
+name: Latest CLI contract
+
+on:
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/cli-compat.yml'
+      - 'tests/test_cli_contract.py'
+      - 'src/pytest_codex/runner.py'
+      - 'src/pytest_codex/events.py'
+
+permissions:
+  contents: read
+
+jobs:
+  latest-cli:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - run: python -m pip install .
+      - run: npm install --prefix .tmp/cli @openai/codex@latest
+      - name: Exercise latest real CLI against a local fixture (no model calls)
+        env:
+          CODEX_CONTRACT_BIN: .tmp/cli/node_modules/.bin/codex
+        run: |
+          "$CODEX_CONTRACT_BIN" --version
+          python -m pytest tests/test_cli_contract.py -q
