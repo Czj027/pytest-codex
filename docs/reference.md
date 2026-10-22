@@ -10,7 +10,8 @@ Test conventions, `AGENTS.md`, Skills, MCP calls and config variations.
 
 ## Quick start
 
-Version **0.1.0** includes the pytest fixture, offline replay and pass-rate checks.
+Version **0.2.0** includes the pytest fixture, offline replay, pass-rate checks
+and CLI version validation.
 Install it from PyPI:
 
 ```console

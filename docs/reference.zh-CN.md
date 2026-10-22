@@ -3,7 +3,7 @@
 用 pytest 检查 Codex 的实际行为，支持真实执行录制、离线回放和多次运行通过率。
 MIT 协议，Python 3.10+，pytest 7+。
 
-**0.1.0 已在 PyPI 发布**，包含 fixture、录制回放和通过率检查：
+**0.2.0 已在 PyPI 发布**，包含 fixture、录制回放、通过率检查和 CLI 版本校验：
 
 ```console
 python -m pip install pytest-codex
