@@ -12,7 +12,7 @@ def test_uses_uv_and_preserves_legacy(codex):
         config={"model_reasoning_effort": "low"},
     )
     assert run.succeeded, run
-    assert any(command.ok and "uv add" in command.command for command in run.commands), run
+    assert run.ran("uv add", ok=True), run
     assert not run.ran("pip install"), run
     assert run.modified("pyproject.toml"), run
     assert "requests" in run.read("pyproject.toml"), run

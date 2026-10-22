@@ -2,6 +2,8 @@
 
 ## 0.1.0
 
+- Filter command assertions by exit status with `run.ran(pattern, ok=True/False)`.
+
 - Add the automatically discovered `codex` pytest fixture and fresh Git project copies.
 - Add command, file-change, message, MCP-call and token queries on `Run`.
 - Add explicit record/live modes and offline replay by default, with input fingerprint checks.

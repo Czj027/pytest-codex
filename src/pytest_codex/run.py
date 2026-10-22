@@ -50,11 +50,15 @@ class Run:
     def changed_files(self) -> list[str]:
         return self.diff.changed
 
-    def ran(self, pattern: str | re.Pattern) -> bool:
+    def ran(self, pattern: str | re.Pattern, *, ok: bool | None = None) -> bool:
+        """Match a command, optionally requiring exit 0 or a known nonzero exit."""
         return any(
-            pattern in cmd.command
-            if isinstance(pattern, str)
-            else pattern.search(cmd.command) is not None
+            (
+                pattern in cmd.command
+                if isinstance(pattern, str)
+                else pattern.search(cmd.command) is not None
+            )
+            and (ok is None or (cmd.exit_code is not None and cmd.ok == ok))
             for cmd in self.commands
         )
 
