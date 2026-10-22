@@ -22,9 +22,6 @@
 python -m pip install pytest-codex
 ```
 
-fixture 需要 **0.1.0+**；如果当前镜像仍只有 0.0.1 核心预览版，先下载本仓库并执行
-`python -m pip install .`。
-
 ```toml
 # pyproject.toml：指定让 Codex 操作的小项目
 [tool.pytest.ini_options]

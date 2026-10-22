@@ -10,11 +10,11 @@ Test conventions, `AGENTS.md`, Skills, MCP calls and config variations.
 
 ## Quick start
 
-Version **0.1.0** is the local MVP. PyPI **0.0.1** is the earlier core preview
-and does not include the pytest fixture. Until 0.1.0 is published, install this checkout:
+Version **0.1.0** includes the pytest fixture, offline replay and pass-rate checks.
+Install it from PyPI:
 
 ```console
-python -m pip install .
+python -m pip install pytest-codex
 ```
 
 Configure a small test project and write a normal pytest test:
@@ -28,7 +28,7 @@ codex_project = "sample_repo"
 def test_dependency_conventions(codex):
     run = codex.exec("Add requests as a project dependency.")
     assert run.succeeded, run
-    assert any(command.ok and "uv add" in command.command for command in run.commands), run
+    assert run.ran("uv add", ok=True), run
     assert not run.ran("pip install"), run
     assert run.modified("pyproject.toml"), run
     assert not any(path.startswith("legacy/") for path in run.changed_files), run

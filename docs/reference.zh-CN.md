@@ -3,12 +3,10 @@
 用 pytest 检查 Codex 的实际行为，支持真实执行录制、离线回放和多次运行通过率。
 MIT 协议，Python 3.10+，pytest 7+。
 
-当前源码为 **0.1.0 MVP**；PyPI 的 **0.0.1** 是核心预览版，尚无 fixture。
-0.1.0 发布前先从本项目目录安装：
+**0.1.0 已在 PyPI 发布**，包含 fixture、录制回放和通过率检查：
 
 ```console
-python -m pip install .
-python -m pytest examples/test_conventions.py --codex-bin=not-installed -q
+python -m pip install pytest-codex
 ```
 
 示例附带 Windows 上真实录制的 cassette，检查成功执行 `uv add --frozen requests`、
@@ -30,7 +28,7 @@ codex_timeout = "300"
 def test_rules(codex):
     run = codex.exec("Add requests as a project dependency.")
     assert run.succeeded, run
-    assert any(c.ok and "uv add" in c.command for c in run.commands), run
+    assert run.ran("uv add", ok=True), run
     assert not run.ran("pip install"), run
     assert run.modified("pyproject.toml"), run
     assert "requests" in run.read("pyproject.toml"), run

@@ -25,9 +25,6 @@ is included and passes offline.*
 python -m pip install pytest-codex
 ```
 
-The fixture requires **0.1.0+**. If your index still serves the 0.0.1 core preview,
-install this checkout with `python -m pip install .`.
-
 Point pytest at the small project you want Codex to work on:
 
 ```toml

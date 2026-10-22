@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0
+## 0.1.0 — 2026-10-22
 
 - Filter command assertions by exit status with `run.ran(pattern, ok=True/False)`.
 
