@@ -1,6 +1,6 @@
 # pytest-codex
 
-**0.3.0** 新增[真实任务回归对比](docs/regression.md)，可从 GitHub 源码版使用；PyPI 当前仍为 0.2.0。
+**0.3.0** 新增[真实任务回归对比](docs/regression.md)，已在 [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) 和 GitHub 发布。
 
 [![PyPI](https://img.shields.io/pypi/v/pytest-codex)](https://pypi.org/project/pytest-codex/)
 [![Tests](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml/badge.svg)](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml)
@@ -21,10 +21,10 @@
 ## 从一个测试开始
 
 ```console
-python -m pip install pytest-codex
+python -m pip install --upgrade pytest-codex
 ```
 
-0.2.0 已在 PyPI 发布，包含下述版本校验功能。
+0.3.0 已在 PyPI 发布，包含版本校验和真实任务对比报告。
 
 ```toml
 # pyproject.toml：指定让 Codex 操作的小项目

@@ -8,19 +8,18 @@ Test conventions, `AGENTS.md`, Skills, MCP calls and config variations.
 
 [中文参考](reference.zh-CN.md) · [Home](../README.md) · MIT · Python 3.10+ · pytest 7+
 
-The **0.3.0 source release** adds `--codex-recording-set`,
+Version **0.3.0** adds `--codex-recording-set`,
 `--codex-results`, `codex_grader_files` and `python -m pytest_codex.compare`.
 See the [fresh task regression guide](regression.md) for contracts and examples.
-The PyPI instructions below refer to the published 0.2.0 release.
 
 ## Quick start
 
-Version **0.2.0** includes the pytest fixture, offline replay, pass-rate checks
-and CLI version validation.
+Version **0.3.0** includes the pytest fixture, offline replay, pass-rate checks,
+CLI version validation and fresh task comparison reports.
 Install it from PyPI:
 
 ```console
-python -m pip install pytest-codex
+python -m pip install --upgrade pytest-codex
 ```
 
 Configure a small test project and write a normal pytest test:

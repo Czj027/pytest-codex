@@ -1,10 +1,9 @@
 # Compare fresh Codex task outcomes
 
-This feature is included in 0.3.0. PyPI 0.2.0 does not provide the result export
-or comparison command. Install this source checkout to try it:
+This feature is included in 0.3.0, available on PyPI:
 
 ```console
-python -m pip install .
+python -m pip install --upgrade pytest-codex
 ```
 
 ## Start with a checkable task

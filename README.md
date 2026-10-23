@@ -20,15 +20,15 @@ is included and passes offline.*
 [中文](README.zh-CN.md) · [Full reference](docs/reference.md)
 
 **0.3.0** adds [fresh task regression comparisons](docs/regression.md), available
-from the GitHub source release. PyPI currently provides 0.2.0.
+from [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) and the GitHub release.
 
 ## Start with one test
 
 ```console
-python -m pip install pytest-codex
+python -m pip install --upgrade pytest-codex
 ```
 
-Version 0.2.0 is available on PyPI, including version-checked replay.
+Version 0.3.0 includes version-checked replay and fresh task comparison reports.
 
 Point pytest at the small project you want Codex to work on:
 
