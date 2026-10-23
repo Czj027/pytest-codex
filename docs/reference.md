@@ -1,5 +1,9 @@
 # Reference
 
+The 0.4.0 development version adds [Codex Desktop observations and explicit
+bundled-engine selection](desktop.md). Those APIs require this development
+checkout; the PyPI release described below remains 0.3.0.
+
 Test what Codex actually does, using ordinary pytest assertions.
 
 Record a real execution once, then replay events and file changes in CI without

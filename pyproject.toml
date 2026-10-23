@@ -1,6 +1,6 @@
 [project]
 name = "pytest-codex"
-version = "0.3.0"
+version = "0.4.0"
 description = "Test Codex behavior with pytest fixtures, offline record/replay, and pass-rate checks."
 readme = "README.md"
 license = "MIT"
@@ -15,6 +15,9 @@ classifiers = [
     "Topic :: Software Development :: Testing",
 ]
 dependencies = ["pytest>=7"]
+
+[project.scripts]
+pytest-codex-panel = "pytest_codex.dashboard:main"
 
 [project.entry-points.pytest11]
 "pytest_codex.plugin" = "pytest_codex.plugin"

@@ -16,6 +16,7 @@ import pytest
 from . import results
 from .cassette import cassette_key, check_cli_version, load_cassette, save_cassette
 from .cleanup import remove_tree
+from .desktop_engine import find_desktop_binary
 from .paths import native_path
 from .runner import cli_version, execute
 from .sandbox import make_sandbox
@@ -33,6 +34,11 @@ def pytest_addoption(parser):
     group.addoption("--codex-record", action="store_true", help="alias for --codex-mode=record")
     group.addoption("--codex-live", action="store_true", help="alias for --codex-mode=live")
     group.addoption("--codex-bin", default="codex", help="Codex CLI executable")
+    group.addoption(
+        "--codex-desktop",
+        action="store_true",
+        help="explicitly use the desktop-bundled engine for live/record (replay stays offline)",
+    )
     group.addoption("--codex-model", default=None, help="model passed to Codex")
     group.addoption("--codex-recording-set", default=None, help="isolated named cassette set")
     group.addoption("--codex-results", default=None, help="write new per-attempt JSON results")
@@ -117,6 +123,16 @@ class Codex:
         self._version = None
         self._result_calls = []
 
+    def from_desktop_session(self, path, *, turn_id=None):
+        """Read one explicit historical session; never executes a model or restores files."""
+        from .desktop import from_desktop_session
+
+        if self.request.config._codex_result_path is not None:
+            raise pytest.UsageError(
+                "Desktop observations cannot enter --codex-results fresh comparisons; export an observation separately"
+            )
+        return from_desktop_session(path, turn_id=turn_id)
+
     def exec(
         self,
         prompt: str,
@@ -156,6 +172,11 @@ class Codex:
                 "codex_model, or exec(model=...) so default model changes cannot go unnoticed"
             )
         binary = settings.getoption("codex_bin")
+        desktop_selected = settings.getoption("codex_desktop")
+        if desktop_selected and binary != "codex":
+            raise pytest.UsageError("Choose either --codex-desktop or --codex-bin")
+        if desktop_selected and check_local:
+            binary = find_desktop_binary()
         if check_local:
             if self._version is None:
                 self._version = cli_version(binary)
@@ -189,6 +210,8 @@ class Codex:
         if mode == "replay" or mode == "auto" and native_path(path).exists():
             run = load_cassette(path, key, root, expected_version=expected_version)
         else:
+            if desktop_selected and not check_local:
+                binary = find_desktop_binary()
             if (
                 mode in {"record", "auto"} or expected_version or settings._codex_result_path
             ) and self._version is None:

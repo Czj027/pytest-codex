@@ -46,6 +46,10 @@ def cassette_key(prompt, model, config, sandbox, inputs, isolation="full") -> st
 
 
 def save_cassette(path: Path, key: str, run: Run, version: str, *, overwrite: bool = True) -> None:
+    if getattr(run, "file_state", "verified") != "verified":
+        raise ValueError(
+            "A full cassette requires verified file state; export an observation instead"
+        )
     files = {}
     for name in run.diff.added + run.diff.modified:
         source = project_path(run.project, name)

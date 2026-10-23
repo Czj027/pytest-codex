@@ -2,6 +2,15 @@
 
 **0.3.0** 新增[真实任务回归对比](docs/regression.md)，已在 [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) 和 GitHub 发布。
 
+**0.4.0**加入[桌面端支持](docs/desktop.md)：导入明确指定的桌面会话轮次，
+不新增模型调用；也可显式选择桌面版附带引擎进行真实录制。
+导入结果只保留历史事件，不重建文件状态，不自动扫描私聊。
+
+0.4.0 另含[本地规则检查面板](docs/panel.zh-CN.md)：运行
+`pytest-codex-panel --project .` 后，在浏览器里查看本项目近期任务、命令、文件报告和
+缓存／非缓存 Token，填写禁令即可检查，无需手写 Python。只有显式启动面板才会
+只读发现本项目会话；不调用模型，不将缺失证据显示为通过。
+
 [![PyPI](https://img.shields.io/pypi/v/pytest-codex)](https://pypi.org/project/pytest-codex/)
 [![Tests](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml/badge.svg)](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/pypi/pyversions/pytest-codex)](https://pypi.org/project/pytest-codex/)
@@ -24,7 +33,7 @@
 python -m pip install --upgrade pytest-codex
 ```
 
-0.3.0 已在 PyPI 发布，包含版本校验和真实任务对比报告。
+0.4.0 包含桌面会话导入、本地面板、版本校验和真实任务对比报告。
 
 ```toml
 # pyproject.toml：指定让 Codex 操作的小项目
