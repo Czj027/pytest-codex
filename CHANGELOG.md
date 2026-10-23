@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.0 — Unreleased
+## 0.4.0 — 2026-10-23
 
 - Add `pytest-codex-panel --project .`: a capability-protected loopback browser
   UI for bounded recent project history, three-state command/path rules,

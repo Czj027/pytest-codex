@@ -1,7 +1,7 @@
 # Codex Desktop
 
-Available in the **0.4.0 development branch**. PyPI 0.3.0 does not contain these
-APIs. Install this checkout with `python -m pip install .` to try them.
+Available in **0.4.0**. Install or upgrade with
+`python -m pip install --upgrade pytest-codex`.
 
 ## Check an existing desktop task without another model call
 

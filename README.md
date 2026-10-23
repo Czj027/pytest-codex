@@ -22,13 +22,12 @@ is included and passes offline.*
 **0.3.0** adds [fresh task regression comparisons](docs/regression.md), available
 from [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) and the GitHub release.
 
-The **0.4.0 development branch** adds [Codex Desktop support](docs/desktop.md):
+**0.4.0** adds [Codex Desktop support](docs/desktop.md):
 import a selected historical turn without a new model call, or explicitly use
-the desktop-bundled engine for live/record. Install this checkout to try it;
-PyPI 0.3.0 does not include these APIs. Imported logs are event-only observations,
+the desktop-bundled engine for live/record. Imported logs are event-only observations,
 with no reconstructed file state or automatic history scanning.
 
-The development checkout also includes a [local rule panel](docs/panel.zh-CN.md):
+Version 0.4.0 also includes a [local rule panel](docs/panel.zh-CN.md):
 `pytest-codex-panel --project .` opens a browser UI for recent project tasks,
 commands, reported files, cached/uncached tokens and user-confirmed rule checks.
 Launching the panel opts into bounded project-scoped history discovery, with no
@@ -40,7 +39,7 @@ model calls. Unknown evidence stays unknown, rather than green.
 python -m pip install --upgrade pytest-codex
 ```
 
-Version 0.3.0 includes version-checked replay and fresh task comparison reports.
+Version 0.4.0 includes desktop imports, the local panel and fresh task comparison reports.
 
 Point pytest at the small project you want Codex to work on:
 

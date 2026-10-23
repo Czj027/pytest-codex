@@ -1,14 +1,14 @@
 # 本地规则检查面板
 
-0.4.0 开发版功能，尚未发布到 PyPI。面板只在本机运行，不调用模型。
+0.4.0 新增功能。面板只在本机运行，不调用模型。
 无需编写 Python 测试；安装本项目后，通过浏览器配置规则和查看任务。
 
 ## 启动
 
-在当前开发分支目录安装，然后切到要检查的项目目录：
+安装或升级后，切到要检查的项目目录：
 
 ```console
-python -m pip install .
+python -m pip install --upgrade pytest-codex
 pytest-codex-panel --project .
 ```
 
