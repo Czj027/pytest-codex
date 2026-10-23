@@ -28,7 +28,7 @@ replace its historical failures. The original 30-turn evidence remains intact.
 
 ## Reproduce offline
 
-From a 0.3.0 candidate source checkout:
+From a 0.3.0 source checkout:
 
 ```console
 python -m pytest -c examples/regression/verified.ini examples/regression/verified_edits.py --codex-model=gpt-6-luna --codex-recording-set=luna-verified-20261023 --codex-bin=not-installed -q

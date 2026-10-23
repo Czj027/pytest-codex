@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 — candidate
+## 0.3.0 — 2026-10-23
 
 - Tolerate already-removed descendant files during owned-tree cleanup on older
   Python versions, while preserving ownership checks and missing-root errors.

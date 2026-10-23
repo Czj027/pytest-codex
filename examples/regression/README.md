@@ -1,6 +1,6 @@
 # Five-task regression pilot
 
-Development feature for pytest-codex 0.3.0; use the source checkout. This is a
+Included in pytest-codex 0.3.0; use the source checkout. This is a
 small demonstration of outcome verification and matched fresh observations,
 not a model leaderboard. [Full guide](../../docs/regression.md).
 

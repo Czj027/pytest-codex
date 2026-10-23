@@ -19,8 +19,8 @@ is included and passes offline.*
 
 [中文](README.zh-CN.md) · [Full reference](docs/reference.md)
 
-Development on this branch: [fresh task regression comparisons](docs/regression.md)
-for the 0.3.0 candidate. PyPI 0.2.0 remains the published release.
+**0.3.0** adds [fresh task regression comparisons](docs/regression.md), available
+from the GitHub source release. PyPI currently provides 0.2.0.
 
 ## Start with one test
 

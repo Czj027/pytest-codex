@@ -1,6 +1,6 @@
 # Compare fresh Codex task outcomes
 
-This is a 0.3.0 development feature. PyPI 0.2.0 does not provide the result export
+This feature is included in 0.3.0. PyPI 0.2.0 does not provide the result export
 or comparison command. Install this source checkout to try it:
 
 ```console

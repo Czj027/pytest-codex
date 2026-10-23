@@ -8,7 +8,7 @@ Test conventions, `AGENTS.md`, Skills, MCP calls and config variations.
 
 [中文参考](reference.zh-CN.md) · [Home](../README.md) · MIT · Python 3.10+ · pytest 7+
 
-The **0.3.0 development candidate** adds `--codex-recording-set`,
+The **0.3.0 source release** adds `--codex-recording-set`,
 `--codex-results`, `codex_grader_files` and `python -m pytest_codex.compare`.
 See the [fresh task regression guide](regression.md) for contracts and examples.
 The PyPI instructions below refer to the published 0.2.0 release.
