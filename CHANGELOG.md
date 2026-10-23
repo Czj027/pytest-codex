@@ -2,6 +2,12 @@
 
 ## 0.4.0 — Unreleased
 
+- Add `pytest-codex-panel --project .`: a capability-protected loopback browser
+  UI for bounded recent project history, three-state command/path rules,
+  project AGENTS.md candidates and existing matched fresh-results comparisons.
+- Keep unfinished commands and partial token records inconclusive; bound long
+  panel displays without turning truncated evidence into a green check.
+
 - Import explicitly selected Codex Desktop turns as historical event-only `Run`
   objects, with command/MCP assertions and attributed per-turn usage.
 - Export opt-in observations for offline tests, omitting instructions/reasoning

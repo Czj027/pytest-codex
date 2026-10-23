@@ -354,7 +354,11 @@ def test_usage_after_completion_and_while_another_turn_is_active(tmp_path):
                 "type": "token_usage_record",
                 "payload": {
                     "turn_id": "one",
-                    "turn_token_usage": {"input_tokens": 50, "output_tokens": 5},
+                    "turn_token_usage": {
+                        "input_tokens": 50,
+                        "cached_input_tokens": 0,
+                        "output_tokens": 5,
+                    },
                 },
             },
             {"type": "event_msg", "payload": {"type": "task_started", "turn_id": "two"}},
@@ -362,7 +366,11 @@ def test_usage_after_completion_and_while_another_turn_is_active(tmp_path):
                 "type": "token_usage_record",
                 "payload": {
                     "turn_id": "one",
-                    "turn_token_usage": {"input_tokens": 60, "output_tokens": 6},
+                    "turn_token_usage": {
+                        "input_tokens": 60,
+                        "cached_input_tokens": 0,
+                        "output_tokens": 6,
+                    },
                 },
             },
         ],

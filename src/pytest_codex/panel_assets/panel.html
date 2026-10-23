@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>pytest-codex · 本地规则面板</title>
+  <link rel="stylesheet" href="/panel.css">
+  <script src="/panel.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="mark">pc</span><span>pytest-codex <small>LOCAL WORKSPACE</small></span></div>
+    <span class="local-dot">仅本机 · 无模型调用</span>
+  </header>
+  <main>
+    <div class="heading"><div><p class="eyebrow">CODEX DESKTOP / OBSERVATIONS</p><h1>每次任务，都有迹可查。</h1><p class="muted">查看命令、用量与规则命中。历史观察与真实回归结果分开展示。</p></div><button id="refresh" class="secondary">刷新任务</button></div>
+    <div id="alert" class="alert" role="alert" hidden></div>
+    <nav class="tabs" aria-label="面板页面"><button id="recent-tab" class="tab selected" aria-selected="true">最近任务</button><button id="compare-tab" class="tab" aria-selected="false">回归对比</button></nav>
+    <section id="recent-view">
+      <div id="summary" class="stats" aria-live="polite"></div>
+      <div class="workspace">
+        <section class="card observations"><div class="card-heading"><div><h2>任务观察</h2><p id="scan-info" class="muted">正在读取指定项目的近期会话…</p></div><span id="project" class="pill neutral"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>任务 / 时间</th><th>完成状态</th><th>规则检查</th><th>命令 / 文件报告</th><th>缓存 / 非缓存 / 输出</th></tr></thead><tbody id="tasks"></tbody></table></div>
+          <div id="empty" class="empty" hidden><h3>还没有可显示的任务</h3><p>请确认启动参数中的项目和会话目录。格式错误的日志不会算作通过。</p></div>
+          <p class="footnote">“完成”不等于任务验收通过。命令开始记录也参与检查，退出码未知时不表示执行成功。文件项来自日志报告，未核对文件快照；未知用量显示为 —。</p>
+        </section>
+        <aside class="card rules"><p class="eyebrow">CHECK WHAT MATTERS</p><h2>规则检查</h2><p class="muted">配置后立即检查当前任务，不需要 Python。</p>
+          <form id="rule-form">
+            <label for="command-rules">禁用命令片段 <small>每行一条 · 忽略大小写和连续空白</small></label>
+            <textarea id="command-rules" rows="4" placeholder="例如：pip install&#10;npm install" spellcheck="false"></textarea>
+            <label for="file-rules">禁改路径模式 <small>每行一条 · glob 匹配 · 相对项目路径</small></label>
+            <textarea id="file-rules" rows="3" placeholder="例如：legacy/*&#10;.env" spellcheck="false"></textarea>
+            <button type="submit" class="primary">应用并检查</button><p id="rule-note" class="muted small">尚未配置规则。规则只保留在本次面板内存中。</p>
+          </form>
+          <details class="agents"><summary>查看项目 AGENTS.md</summary><p class="muted small">仅展示本项目文件。自然语言没有被完整语义解析。</p><pre id="agents-text"></pre><button id="suggest" type="button" class="secondary">填入候选禁令，供确认</button><p id="suggest-note" class="muted small"></p></details>
+          <div class="legend"><span class="pill fail">命中</span><span class="pill pass">已配置命令规则通过</span><span class="pill unknown">未知 / 证据不足</span></div>
+        </aside>
+      </div>
+      <section id="detail" class="card task-detail" hidden><div class="card-heading"><h2 id="detail-title">任务详情</h2><button id="close-detail" class="secondary">收起详情</button></div><div id="detail-body"></div></section>
+    </section>
+    <section id="compare-view" hidden>
+      <div class="card compare-upload"><p class="eyebrow">MATCHED FRESH RUNS</p><h2>模型 / CLI 回归对比</h2><p class="muted">选择两份由 --codex-results 生成的 JSON。沿用现有匹配契约，保留错误与不确定结果；不调用模型。</p><form id="compare-form"><div class="file-grid"><label>基线结果 JSON<input id="baseline-file" type="file" accept=".json,application/json" required></label><label>候选结果 JSON<input id="candidate-file" type="file" accept=".json,application/json" required></label><label>唯一变化因素<select id="factor"><option value="model">模型</option><option value="cli">CLI 版本</option></select></label></div><button class="primary" type="submit">检查并对比</button></form><p class="footnote">桌面历史导出不能冒充新的对比样本。文件只发送到本机面板；关闭面板后不保留。</p></div>
+      <div id="comparison" aria-live="polite"></div>
+    </section>
+    <footer>本地只读面板 · 不执行 AGENTS.md 中的命令 · 不自动修改项目文件或发起模型请求</footer>
+  </main>
+</body>
+</html>

@@ -5,6 +5,12 @@ APIs. Install this checkout with `python -m pip install .` to try them.
 
 ## Check an existing desktop task without another model call
 
+Prefer a UI? The [local rule panel](panel.zh-CN.md) can discover recent tasks for
+an explicitly selected project, display command/file reports and token counters,
+and apply user-confirmed command/path prohibitions without authoring Python.
+It can also compare two existing fresh-results JSON files. Launching that panel
+explicitly opts into project-filtered discovery; the file APIs below never scan.
+
 Supply one local session JSONL file explicitly. Nothing searches your history,
 resumes a conversation, reads credentials, or calls a model.
 
@@ -38,6 +44,8 @@ record was available. Its last snapshot is used once, without double-counting
 token-count notifications or another turn's usage. When unavailable, token
 counts are zero placeholders, not evidence of free execution. Per-request and
 thread totals are not substituted for per-turn usage.
+Missing input/cached/output fields remain unknown; unfinished execution items
+also prevent negative command/MCP assertions from claiming complete coverage.
 
 ## Historical observations and file evidence
 

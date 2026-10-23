@@ -138,7 +138,14 @@ class DesktopRun(Run):
         self.source_sha256 = source_sha256
         self.reported_changed_files = sorted(set(reported_changed_files))
         self.unsupported_items = sorted(set(unsupported_items))
-        self.commands_complete = status == "completed" and not self.unsupported_items
+        self.commands_complete = (
+            status == "completed"
+            and not self.unsupported_items
+            and all(
+                item.status in {"completed", "failed", "declined", "cancelled", "canceled"}
+                for item in [*self.commands, *self.mcp_calls]
+            )
+        )
         self.usage_complete = usage_complete
         if status != "completed":
             self.usage = self.tokens = Usage(**events[-1].get("usage", {}))
@@ -248,7 +255,9 @@ def _read_session(path):
                 raise DesktopSessionError("Duplicate turn start; unsupported session structure")
             current = turn_id
             turns[current] = {
+                "started_at": record.get("timestamp") or payload.get("started_at"),
                 "items": [],
+                "pending": {},
                 "unsupported": [],
                 "files": [],
                 "status": "incomplete",
@@ -267,7 +276,10 @@ def _read_session(path):
                 turn["model"] = payload.get("model")
             elif kind == "token_usage_record":
                 usage = payload.get("turn_token_usage")
+                turn["usage"] = None
                 if isinstance(usage, dict):
+                    if not {"input_tokens", "cached_input_tokens", "output_tokens"}.issubset(usage):
+                        continue
                     for name in (
                         "input_tokens",
                         "cached_input_tokens",
@@ -289,10 +301,24 @@ def _read_session(path):
                             "reasoning_output_tokens",
                         )
                     }
-            elif kind == "event_msg" and typ == "item_completed":
+            elif kind == "event_msg" and typ in {"item_started", "item_updated", "item_completed"}:
                 raw = payload.get("item")
                 if not isinstance(raw, dict):
                     raise DesktopSessionError("Unsupported completed item shape")
+                item_id = str(raw.get("id") or "anonymous")
+                if typ != "item_completed":
+                    if raw.get("type") not in {
+                        "UserMessage",
+                        "Reasoning",
+                        "ContextCompaction",
+                        "AgentMessage",
+                    }:
+                        turn["pending"][item_id] = str(raw.get("type", "unknown"))
+                        if raw.get("type") in {"CommandExecution", "McpToolCall"}:
+                            item = _item({**raw, "status": "in_progress", "exit_code": None})
+                            turn["items"].append(item)
+                    continue
+                turn["pending"].pop(item_id, None)
                 item = _item(raw)
                 if item:
                     turn["items"].append(item)
@@ -353,7 +379,7 @@ def _load_observation(path, turn_id):
         if not data["events"]:
             raise ValueError
         for event in data["events"]:
-            if event.get("type") == "item.completed":
+            if event.get("type") in {"item.completed", "item.started"}:
                 if set(event) != {"type", "item"} or not isinstance(event["item"], dict):
                     raise ValueError
                 item = event["item"]
@@ -423,6 +449,12 @@ def _load_observation(path, turn_id):
         observed_usage = data["events"][-1].get("usage", {})
         if data["usage_complete"] != bool(observed_usage):
             raise ValueError
+        if data["usage_complete"] and not {
+            "input_tokens",
+            "cached_input_tokens",
+            "output_tokens",
+        }.issubset(observed_usage):
+            raise ValueError
         if not isinstance(data.get("cli_version"), str) or (
             data.get("model") is not None and not isinstance(data["model"], str)
         ):
@@ -462,7 +494,11 @@ def from_desktop_session(path, *, turn_id=None):
         turn_id = next(iter(turns))
     if turn_id not in turns:
         raise DesktopSessionError("Requested turn_id not found")
-    turn = turns[turn_id]
+    return _run_from_turn(meta, turns[turn_id], source_sha256, turn_id)
+
+
+def _run_from_turn(meta, turn, source_sha256, turn_id):
+    """Shared normalizer so a local panel can parse each selected session once."""
     items = turn["items"]
     if turn["final"]:
         items = [
@@ -474,7 +510,13 @@ def from_desktop_session(path, *, turn_id=None):
                 "status": "completed",
             },
         ]
-    events = [{"type": "item.completed", "item": item} for item in items]
+    events = [
+        {
+            "type": "item.started" if item.get("status") == "in_progress" else "item.completed",
+            "item": item,
+        }
+        for item in items
+    ]
     if turn["status"] == "completed":
         events.append({"type": "turn.completed", "usage": turn["usage"] or {}})
     else:
@@ -491,7 +533,10 @@ def from_desktop_session(path, *, turn_id=None):
         status=turn["status"],
         source_sha256=source_sha256,
         reported_changed_files=_portable(turn["files"], meta.get("cwd", "")),
-        unsupported_items=turn["unsupported"],
+        unsupported_items=[
+            *turn["unsupported"],
+            *("unfinished:" + name for name in turn["pending"].values()),
+        ],
         usage_complete=turn["usage"] is not None,
         cli_version=meta.get("cli_version", ""),
         model=turn["model"],

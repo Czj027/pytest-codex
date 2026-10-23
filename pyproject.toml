@@ -16,6 +16,9 @@ classifiers = [
 ]
 dependencies = ["pytest>=7"]
 
+[project.scripts]
+pytest-codex-panel = "pytest_codex.dashboard:main"
+
 [project.entry-points.pytest11]
 "pytest_codex.plugin" = "pytest_codex.plugin"
 

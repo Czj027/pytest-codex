@@ -6,6 +6,11 @@
 不新增模型调用；也可显式选择桌面版附带引擎进行真实录制。需从当前源码安装，
 PyPI 0.3.0 尚不含这些接口。导入结果只保留历史事件，不重建文件状态，不自动扫描私聊。
 
+开发版另含[本地规则检查面板](docs/panel.zh-CN.md)：运行
+`pytest-codex-panel --project .` 后，在浏览器里查看本项目近期任务、命令、文件报告和
+缓存／非缓存 Token，填写禁令即可检查，无需手写 Python。只有显式启动面板才会
+只读发现本项目会话；不调用模型，不将缺失证据显示为通过。
+
 [![PyPI](https://img.shields.io/pypi/v/pytest-codex)](https://pypi.org/project/pytest-codex/)
 [![Tests](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml/badge.svg)](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/pypi/pyversions/pytest-codex)](https://pypi.org/project/pytest-codex/)

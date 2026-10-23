@@ -28,6 +28,12 @@ the desktop-bundled engine for live/record. Install this checkout to try it;
 PyPI 0.3.0 does not include these APIs. Imported logs are event-only observations,
 with no reconstructed file state or automatic history scanning.
 
+The development checkout also includes a [local rule panel](docs/panel.zh-CN.md):
+`pytest-codex-panel --project .` opens a browser UI for recent project tasks,
+commands, reported files, cached/uncached tokens and user-confirmed rule checks.
+Launching the panel opts into bounded project-scoped history discovery, with no
+model calls. Unknown evidence stays unknown, rather than green.
+
 ## Start with one test
 
 ```console
