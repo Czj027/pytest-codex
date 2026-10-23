@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0 — candidate
+
+- Add immutable named recording sets and opt-in per-attempt JSON results.
+- Compare matched fresh model or CLI observations with separate task failures,
+  execution/grader errors and skips; reject replay and changed task contracts.
+- Include five independently checked tasks and all 30 reviewed pilot recordings,
+  including unsuccessful attempts and disclosed Windows shell startup errors.
+- Keep runtime dependencies unchanged and ordinary tests fully offline.
+
 ## 0.2.0 — 2026-10-22
 
 - Add offline CLI version pins and an opt-in installed-version check; require an

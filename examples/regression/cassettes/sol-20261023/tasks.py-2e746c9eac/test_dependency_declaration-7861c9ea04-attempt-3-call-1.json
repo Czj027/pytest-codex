@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "key": "9b4722cc4e9fb950dd92088db930cf8494afbb24bc45afcbb139079233cb5ca0",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "<THREAD>"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "I’ll run the requested `uv add` command and check the resulting changes."
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'uv add --frozen --no-managed-python --no-python-downloads --cache-dir .uv-cache requests==2.32.5'",
+        "aggregated_output": "",
+        "exit_code": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'uv add --frozen --no-managed-python --no-python-downloads --cache-dir .uv-cache requests==2.32.5'",
+        "aggregated_output": "Using CPython 3.12.14 interpreter at: <HOME>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_2",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'git status --short; git diff -- pyproject.toml uv.lock'",
+        "aggregated_output": "",
+        "exit_code": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'git status --short; git diff -- pyproject.toml uv.lock'",
+        "aggregated_output": " M pyproject.toml\nwarning: in the working copy of 'pyproject.toml', LF will be replaced by CRLF the next time Git touches it\ndiff --git a/pyproject.toml b/pyproject.toml\nindex 52e573d..78a2bf5 100644\n--- a/pyproject.toml\n+++ b/pyproject.toml\n@@ -2,4 +2,6 @@\n name = \"codex-conventions-example\"\n version = \"0.1.0\"\n requires-python = \">=3.10\"\n-dependencies = []\n+dependencies = [\n+    \"requests==2.32.5\",\n+]\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_3",
+        "type": "agent_message",
+        "text": "Added `requests==2.32.5` using the exact command. Only `pyproject.toml` changed; unrelated files and `legacy/` were preserved."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 30392,
+        "cached_input_tokens": 27392,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 146,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [],
+    "modified": [
+      "pyproject.toml"
+    ],
+    "deleted": []
+  },
+  "files": {
+    "pyproject.toml": {
+      "data": "W3Byb2plY3RdCm5hbWUgPSAiY29kZXgtY29udmVudGlvbnMtZXhhbXBsZSIKdmVyc2lvbiA9ICIwLjEuMCIKcmVxdWlyZXMtcHl0aG9uID0gIj49My4xMCIKZGVwZW5kZW5jaWVzID0gWwogICAgInJlcXVlc3RzPT0yLjMyLjUiLApdCg==",
+      "mode": 438
+    }
+  },
+  "returncode": 0,
+  "stderr": ""
+}

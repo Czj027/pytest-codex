@@ -1,0 +1,591 @@
+{
+  "schema": 1,
+  "factor": "model",
+  "cohorts": [
+    {
+      "model": "gpt-6-luna",
+      "cli": "codex-cli 0.163.0"
+    },
+    {
+      "model": "gpt-6.1-sol",
+      "cli": "codex-cli 0.163.0"
+    }
+  ],
+  "cases": [
+    {
+      "case": "tasks.py::test_dependency_declaration",
+      "baseline": {
+        "error": 2,
+        "failed": 0,
+        "passed": 1,
+        "skipped": 0,
+        "completed": 1,
+        "rate": 1.0
+      },
+      "candidate": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "completed": 3,
+        "rate": 1.0
+      },
+      "rate_delta": null,
+      "direction": "inconclusive",
+      "attempts": [
+        {
+          "attempt": 1,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0,
+                0
+              ],
+              "changed_files": [
+                "pyproject.toml"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "pyproject.toml"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "baseline": "error",
+          "candidate": "passed",
+          "baseline_error": "ShellStartupError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                -1
+              ],
+              "changed_files": [],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "pyproject.toml"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "baseline": "error",
+          "candidate": "passed",
+          "baseline_error": "ShellStartupError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                -1
+              ],
+              "changed_files": [
+                "pyproject.toml"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "pyproject.toml"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tasks.py::test_fix_average",
+      "baseline": {
+        "error": 1,
+        "failed": 1,
+        "passed": 1,
+        "skipped": 0,
+        "completed": 2,
+        "rate": 0.5
+      },
+      "candidate": {
+        "error": 1,
+        "failed": 0,
+        "passed": 2,
+        "skipped": 0,
+        "completed": 2,
+        "rate": 1.0
+      },
+      "rate_delta": null,
+      "direction": "inconclusive",
+      "attempts": [
+        {
+          "attempt": 1,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "mathx.py"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0,
+                0
+              ],
+              "changed_files": [
+                "mathx.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "baseline": "error",
+          "candidate": "passed",
+          "baseline_error": "ShellStartupError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                -1
+              ],
+              "changed_files": [],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0,
+                0
+              ],
+              "changed_files": [
+                "mathx.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "baseline": "failed",
+          "candidate": "error",
+          "baseline_error": "AssertionError",
+          "candidate_error": "ShellStartupError",
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                1,
+                -1,
+                -1
+              ],
+              "changed_files": [
+                "mathx.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tasks.py::test_mcp_result",
+      "baseline": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "completed": 3,
+        "rate": 1.0
+      },
+      "candidate": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "completed": 3,
+        "rate": 1.0
+      },
+      "rate_delta": 0.0,
+      "direction": "unchanged",
+      "attempts": [
+        {
+          "attempt": 1,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [],
+              "changed_files": [],
+              "mcp_tools": [
+                "catalog.lookup:completed"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tasks.py::test_preserve_legacy",
+      "baseline": {
+        "error": 1,
+        "failed": 1,
+        "passed": 1,
+        "skipped": 0,
+        "completed": 2,
+        "rate": 0.5
+      },
+      "candidate": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "completed": 3,
+        "rate": 1.0
+      },
+      "rate_delta": null,
+      "direction": "inconclusive",
+      "attempts": [
+        {
+          "attempt": 1,
+          "baseline": "error",
+          "candidate": "passed",
+          "baseline_error": "ShellStartupError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                -1
+              ],
+              "changed_files": [
+                "app.py"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "app.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                1
+              ],
+              "changed_files": [
+                "app.py"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "app.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "baseline": "failed",
+          "candidate": "passed",
+          "baseline_error": "AssertionError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "app.py"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "tasks.py::test_skill_artifact",
+      "baseline": {
+        "error": 1,
+        "failed": 0,
+        "passed": 2,
+        "skipped": 0,
+        "completed": 2,
+        "rate": 1.0
+      },
+      "candidate": {
+        "error": 0,
+        "failed": 0,
+        "passed": 3,
+        "skipped": 0,
+        "completed": 3,
+        "rate": 1.0
+      },
+      "rate_delta": null,
+      "direction": "inconclusive",
+      "attempts": [
+        {
+          "attempt": 1,
+          "baseline": "error",
+          "candidate": "passed",
+          "baseline_error": "ShellStartupError",
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                -1,
+                0,
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 2,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        },
+        {
+          "attempt": 3,
+          "baseline": "passed",
+          "candidate": "passed",
+          "baseline_error": null,
+          "candidate_error": null,
+          "baseline_behavior": [
+            {
+              "command_exits": [
+                0,
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ],
+          "candidate_behavior": [
+            {
+              "command_exits": [
+                0
+              ],
+              "changed_files": [
+                "RELEASE.md"
+              ],
+              "mcp_tools": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "context": {
+    "python": "3.13.14",
+    "platform": "win32",
+    "plugin_version": "0.3.0",
+    "recording_set": "luna-20261023"
+  },
+  "usage": {
+    "baseline": {
+      "input_tokens": 745179,
+      "cached_input_tokens": 670720,
+      "output_tokens": 3394,
+      "duration_seconds": 285.369497
+    },
+    "candidate": {
+      "input_tokens": 703528,
+      "cached_input_tokens": 633600,
+      "output_tokens": 3760,
+      "duration_seconds": 373.053411
+    }
+  }
+}

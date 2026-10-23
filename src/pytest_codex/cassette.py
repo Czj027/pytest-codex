@@ -45,7 +45,7 @@ def cassette_key(prompt, model, config, sandbox, inputs, isolation="full") -> st
     ).hexdigest()
 
 
-def save_cassette(path: Path, key: str, run: Run, version: str) -> None:
+def save_cassette(path: Path, key: str, run: Run, version: str, *, overwrite: bool = True) -> None:
     files = {}
     for name in run.diff.added + run.diff.modified:
         source = project_path(run.project, name)
@@ -91,7 +91,12 @@ def save_cassette(path: Path, key: str, run: Run, version: str) -> None:
         with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
             json.dump(payload, stream, ensure_ascii=False, indent=2)
             stream.write("\n")
-        os.replace(temporary, path)
+        if overwrite:
+            os.replace(temporary, path)
+        else:
+            # Same-directory hard-link publication is atomic and refuses a concurrent
+            # winner. Never fall back to replace when immutable publication fails.
+            os.link(temporary, path)
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)

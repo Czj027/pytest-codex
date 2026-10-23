@@ -19,6 +19,9 @@ is included and passes offline.*
 
 [中文](README.zh-CN.md) · [Full reference](docs/reference.md)
 
+Development on this branch: [fresh task regression comparisons](docs/regression.md)
+for the 0.3.0 candidate. PyPI 0.2.0 remains the published release.
+
 ## Start with one test
 
 ```console

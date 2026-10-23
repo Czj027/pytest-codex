@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "key": "df0e058fab2db808b3bab53db6b89210fd1715acc6a8c3f0b7ea1671c73527d0",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "<THREAD>"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "I’ll use the brief-release skill to read release.json and write RELEASE.md in the required format."
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content -LiteralPath .agents/skills/brief-release/SKILL.md; Get-Content -LiteralPath release.json'",
+        "aggregated_output": "",
+        "exit_code": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "command_execution",
+        "command": "\"<HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content -LiteralPath .agents/skills/brief-release/SKILL.md; Get-Content -LiteralPath release.json'",
+        "aggregated_output": "---\r\nname: brief-release\r\ndescription: Create a short release note from release.json for a release-summary request.\r\n---\r\n\r\nRead release.json. Write RELEASE.md with exactly this structure, replacing the\r\nversion and change names with the input values:\r\n\r\n```text\r\n# Release VERSION\r\n\r\n- CHANGE\r\n- CHANGE\r\n\r\nReview: offline replay verified\r\n```\r\n\r\nDo not install dependencies or change release.json. Reply briefly after writing.\r\n{\"version\":\"0.2.0\",\"changes\":[\"Version-checked replay\",\"Real MCP example\"]}\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_2",
+        "type": "file_change",
+        "changes": [
+          {
+            "path": "<PROJECT>\\RELEASE.md",
+            "kind": "add"
+          }
+        ],
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "file_change",
+        "changes": [
+          {
+            "path": "<PROJECT>\\RELEASE.md",
+            "kind": "add"
+          }
+        ],
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_3",
+        "type": "agent_message",
+        "text": "Created [RELEASE.md](RELEASE.md) for version 0.2.0 with the required format."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 46081,
+        "cached_input_tokens": 40064,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 167,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [
+      "RELEASE.md"
+    ],
+    "modified": [],
+    "deleted": []
+  },
+  "files": {
+    "RELEASE.md": {
+      "data": "IyBSZWxlYXNlIDAuMi4wCgotIFZlcnNpb24tY2hlY2tlZCByZXBsYXkKLSBSZWFsIE1DUCBleGFtcGxlCgpSZXZpZXc6IG9mZmxpbmUgcmVwbGF5IHZlcmlmaWVkCg==",
+      "mode": 438
+    }
+  },
+  "returncode": 0,
+  "stderr": ""
+}

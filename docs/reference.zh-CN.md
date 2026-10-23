@@ -3,6 +3,11 @@
 用 pytest 检查 Codex 的实际行为，支持真实执行录制、离线回放和多次运行通过率。
 MIT 协议，Python 3.10+，pytest 7+。
 
+**0.3.0 开发候选版**新增 `--codex-recording-set`（录制集隔离）、
+`--codex-results`（逐次结果导出）、`codex_grader_files`（验收文件指纹）及
+`python -m pytest_codex.compare`（真实运行对比）。用法和边界见
+[任务回归指南](regression.md)。下方 PyPI 安装说明仍指已发布的 0.2.0。
+
 **0.2.0 已在 PyPI 发布**，包含 fixture、录制回放、通过率检查和 CLI 版本校验：
 
 ```console

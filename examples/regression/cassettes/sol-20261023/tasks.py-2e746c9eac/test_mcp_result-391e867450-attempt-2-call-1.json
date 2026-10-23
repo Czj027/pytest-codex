@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "key": "0eb59adb65373fba9efc7f93aa0cbf8fea6b9ec28cdb031f45155f0e5620cc2f",
+  "codex_version": "codex-cli 0.163.0",
+  "events": [
+    {
+      "type": "thread.started",
+      "thread_id": "<THREAD>"
+    },
+    {
+      "type": "turn.started"
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_0",
+        "type": "agent_message",
+        "text": "I’ll look up `pytest-codex` with the catalog MCP tool and report its mode."
+      }
+    },
+    {
+      "type": "item.started",
+      "item": {
+        "id": "item_1",
+        "type": "mcp_tool_call",
+        "server": "catalog",
+        "tool": "lookup",
+        "arguments": {
+          "project": "pytest-codex"
+        },
+        "result": null,
+        "error": null,
+        "status": "in_progress"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_1",
+        "type": "mcp_tool_call",
+        "server": "catalog",
+        "tool": "lookup",
+        "arguments": {
+          "project": "pytest-codex"
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"purpose\": \"Test Codex behavior with pytest\", \"mode\": \"offline-first\"}"
+            }
+          ],
+          "structured_content": null
+        },
+        "error": null,
+        "status": "completed"
+      }
+    },
+    {
+      "type": "item.completed",
+      "item": {
+        "id": "item_2",
+        "type": "agent_message",
+        "text": "`pytest-codex` mode: `offline-first`."
+      }
+    },
+    {
+      "type": "turn.completed",
+      "usage": {
+        "input_tokens": 45409,
+        "cached_input_tokens": 42240,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 115,
+        "reasoning_output_tokens": 0
+      }
+    }
+  ],
+  "diff": {
+    "added": [],
+    "modified": [],
+    "deleted": []
+  },
+  "files": {},
+  "returncode": 0,
+  "stderr": ""
+}

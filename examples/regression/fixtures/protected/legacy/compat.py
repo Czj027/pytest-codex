@@ -1,0 +1,1 @@
+SENTINEL = "keep-this-interface"
