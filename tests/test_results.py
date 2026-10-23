@@ -190,6 +190,40 @@ def test_windows_shell_startup_failure_is_not_a_task_failure(tmp_path):
     assert execution_error(Run(events, tmp_path)) is None
 
 
+def test_report_keeps_task_acceptance_separate_from_recovered_startup_error(pytester):
+    prepare(pytester)
+    pytester.makeconftest("""
+pytest_plugins = ["pytest_codex.plugin"]
+import pytest
+from pytest_codex.run import Run
+@pytest.fixture(autouse=True)
+def process(monkeypatch):
+    monkeypatch.setattr("pytest_codex.plugin.cli_version", lambda _: "test-cli")
+    def execute(prompt, project, **kw):
+        return Run([
+            {"type":"item.completed", "item":{"id":"1", "type":"command_execution",
+             "status":"failed", "exit_code":-1, "command":"python check.py",
+             "aggregated_output":"Failed to create unified exec process: login failure"}},
+            {"type":"turn.completed"}], project)
+    monkeypatch.setattr("pytest_codex.plugin.execute", execute)
+""")
+    pytester.makepyfile("""
+import pytest
+@pytest.mark.parametrize("expected", [True, False])
+def test_task(codex, expected):
+    codex.exec("hello")
+    assert expected
+""")
+    pytester.runpytest("--codex-record", "--codex-results=out.json").assert_outcomes(
+        passed=1, failed=1
+    )
+    rows = json.loads((pytester.path / "out.json").read_text(encoding="utf-8"))["attempts"]
+    assert [r["task_status"] for r in rows] == ["passed", "failed"]
+    assert all(r["status"] == "error" for r in rows)
+    assert all(r["execution_errors"] == ["ShellStartupError"] for r in rows)
+    assert rows[1]["task_error_type"] == "AssertionError"
+
+
 def test_export_hashes_parameter_ids_that_may_contain_private_prompts(pytester):
     prepare(pytester)
     pytester.makepyfile("""

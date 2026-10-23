@@ -63,6 +63,7 @@ def record_case(item, factory, status, error_type=None, phase="call"):
     if config._codex_result_path is None:
         return
     runs = list(factory._result_calls) if factory is not None else []
+    task_status, task_error_type = status, error_type
     errors = [
         run.get("execution_error") or ("IncompleteCodexTurn" if not run["succeeded"] else None)
         for run in runs
@@ -74,10 +75,14 @@ def record_case(item, factory, status, error_type=None, phase="call"):
     expected_grader = getattr(item, "_codex_grader_hash", current_grader)
     if current_grader != expected_grader:
         status, error_type = "error", "GraderChanged"
+        task_status, task_error_type = "error", "GraderChanged"
     row = {
         "case": case_id(item),
         "attempt": factory.attempt if factory is not None else 1,
         "status": status,
+        "task_status": task_status,
+        "task_error_type": task_error_type,
+        "execution_errors": sorted({error for error in errors if error}),
         "phase": phase,
         "error_type": error_type,
         "location": {"file": module, "line": item.location[1] + 1},

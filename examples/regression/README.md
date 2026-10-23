@@ -70,6 +70,23 @@ and retained. No prompt, task input, grader or outcome was changed to improve sc
 
 [Per-task comparison](results/comparison.md) · [Machine-readable comparison](results/comparison.json)
 
+An [annotated comparison](results/comparison-annotated.md) now displays original
+task acceptance alongside execution health. Annotation files add the acceptance
+outcomes already present in the explicit correction metadata; original reports,
+recordings, timestamps and conservative statuses are unchanged. Six contaminated
+turns include four accepted and two rejected artifacts. The other two rejected
+artifacts are the unexecuted editing scripts described above.
+
+Follow-up no-model diagnosis reproduced 1326 in four of eight concurrent launches,
+while eight serial launches passed actual write/readback. See the
+[environment experiment](results/environment-diagnosis.md). Run live cohorts
+serially on this Windows/CLI setup; do not start both record commands together.
+
+A [six-turn serial follow-up](results/verified-edits.md) of the two editing tasks
+passed all independent acceptance checks without recognized startup errors. Its
+prompts require actual edits and self-verification. It uses a separate module,
+config, recording set and report; it does not replace the original experiment.
+
 Reproduce history without Codex, login or model calls:
 
 ```console

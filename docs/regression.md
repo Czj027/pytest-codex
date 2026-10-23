@@ -57,6 +57,11 @@ JSON export includes every completed repeated attempt, including failures hidden
 by a passing aggregate `pass_rate` threshold. It separates passed/failed task
 assertions, execution/grader errors and skips. Incomplete Codex turns and the
 observed Windows unified-exec startup failure signature are execution errors.
+`task_status` and `task_error_type` retain the independent acceptance outcome;
+`execution_errors` separately lists recognized execution failures. A recovered
+turn can therefore have `task_status="passed"` and `status="error"`. It remains
+excluded from clean model comparison. A failed assertion following a startup
+failure is visible too, without claiming that the model caused it.
 Other environmental failures may still require review; automatic classification
 is intentionally narrow. Pytest's own outcomes are not replaced by this report.
 Runtime `pytest.skip()` and `pytest.xfail()` stop repetition and export a skipped
@@ -85,6 +90,9 @@ change. Neither comparison substitutes an old replay for a fresh execution.
 Replay-only/mixed observations are rejected. The comparator is a reporting tool:
 its exit status indicates valid comparison/output, not a statistically established
 upgrade decision. Any task with errors/skips is explicitly inconclusive.
+The additional acceptance/health table shows both dimensions, including recovered
+turns. For older reports without `task_status`, their original conservative status
+is used; the comparator does not guess missing acceptance outcomes.
 
 These checks do not capture every inherited tool version, environment variable,
 managed setting or provider change. Record external tool versions separately and

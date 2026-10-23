@@ -1,0 +1,738 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-23T00:13:36.982799+00:00",
+  "context": {
+    "python": "3.13.14",
+    "platform": "win32",
+    "plugin_version": "0.3.0",
+    "recording_set": "luna-20261023"
+  },
+  "attempts": [
+    {
+      "case": "tasks.py::test_dependency_declaration",
+      "attempt": 1,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 15
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "9348a1db4c7c91aca27b6a4b9b1f49af8dd5932757fc07250a3e55d220843753",
+          "prompt_hash": "beab6ed7276723db37ad32d4ee1a64db4122925e7b7603d56adc9930498d35e2",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 26.091566,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0,
+              0
+            ],
+            "changed_files": [
+              "pyproject.toml"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58662,
+            "cached_input_tokens": 54912,
+            "output_tokens": 429
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_dependency_declaration",
+      "attempt": 2,
+      "status": "error",
+      "phase": "call",
+      "error_type": "ShellStartupError",
+      "location": {
+        "file": "tasks.py",
+        "line": 15
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "9348a1db4c7c91aca27b6a4b9b1f49af8dd5932757fc07250a3e55d220843753",
+          "prompt_hash": "beab6ed7276723db37ad32d4ee1a64db4122925e7b7603d56adc9930498d35e2",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 15.6389,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              -1
+            ],
+            "changed_files": [],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 28932,
+            "cached_input_tokens": 25984,
+            "output_tokens": 140
+          },
+          "execution_error": "ShellStartupError"
+        }
+      ],
+      "task_status": "failed",
+      "task_error_type": "AssertionError",
+      "execution_errors": [
+        "ShellStartupError"
+      ]
+    },
+    {
+      "case": "tasks.py::test_dependency_declaration",
+      "attempt": 3,
+      "status": "error",
+      "phase": "call",
+      "error_type": "ShellStartupError",
+      "location": {
+        "file": "tasks.py",
+        "line": 15
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "9348a1db4c7c91aca27b6a4b9b1f49af8dd5932757fc07250a3e55d220843753",
+          "prompt_hash": "beab6ed7276723db37ad32d4ee1a64db4122925e7b7603d56adc9930498d35e2",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 22.96399,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              -1
+            ],
+            "changed_files": [
+              "pyproject.toml"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43722,
+            "cached_input_tokens": 40448,
+            "output_tokens": 278
+          },
+          "execution_error": "ShellStartupError"
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [
+        "ShellStartupError"
+      ]
+    },
+    {
+      "case": "tasks.py::test_fix_average",
+      "attempt": 1,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 26
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "84cc53ec749860c1c52e3bd95234ce30ba4fea88431bb91851d86aa7dcf3ce2e",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 19.186773,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "mathx.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43392,
+            "cached_input_tokens": 40320,
+            "output_tokens": 260
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_fix_average",
+      "attempt": 2,
+      "status": "error",
+      "phase": "call",
+      "error_type": "ShellStartupError",
+      "location": {
+        "file": "tasks.py",
+        "line": 26
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "84cc53ec749860c1c52e3bd95234ce30ba4fea88431bb91851d86aa7dcf3ce2e",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 14.959478,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              -1
+            ],
+            "changed_files": [],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 28815,
+            "cached_input_tokens": 23552,
+            "output_tokens": 95
+          },
+          "execution_error": "ShellStartupError"
+        }
+      ],
+      "task_status": "failed",
+      "task_error_type": "AssertionError",
+      "execution_errors": [
+        "ShellStartupError"
+      ]
+    },
+    {
+      "case": "tasks.py::test_fix_average",
+      "attempt": 3,
+      "status": "failed",
+      "phase": "call",
+      "error_type": "AssertionError",
+      "location": {
+        "file": "tasks.py",
+        "line": 26
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "84cc53ec749860c1c52e3bd95234ce30ba4fea88431bb91851d86aa7dcf3ce2e",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 17.924024,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43402,
+            "cached_input_tokens": 40192,
+            "output_tokens": 221
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "failed",
+      "task_error_type": "AssertionError",
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_preserve_legacy",
+      "attempt": 1,
+      "status": "error",
+      "phase": "call",
+      "error_type": "ShellStartupError",
+      "location": {
+        "file": "tasks.py",
+        "line": 37
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "4cc0e81ca68306a7c03a4b4d2bf0fc5fb5081b07bd892f15850a67cfb47b3394",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 24.942335,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              -1
+            ],
+            "changed_files": [
+              "app.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 57904,
+            "cached_input_tokens": 54400,
+            "output_tokens": 281
+          },
+          "execution_error": "ShellStartupError"
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [
+        "ShellStartupError"
+      ]
+    },
+    {
+      "case": "tasks.py::test_preserve_legacy",
+      "attempt": 2,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 37
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "4cc0e81ca68306a7c03a4b4d2bf0fc5fb5081b07bd892f15850a67cfb47b3394",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 25.378621,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              1
+            ],
+            "changed_files": [
+              "app.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 57960,
+            "cached_input_tokens": 54400,
+            "output_tokens": 299
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_preserve_legacy",
+      "attempt": 3,
+      "status": "failed",
+      "phase": "call",
+      "error_type": "AssertionError",
+      "location": {
+        "file": "tasks.py",
+        "line": 37
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "4cc0e81ca68306a7c03a4b4d2bf0fc5fb5081b07bd892f15850a67cfb47b3394",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 22.603102,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43334,
+            "cached_input_tokens": 40064,
+            "output_tokens": 233
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "failed",
+      "task_error_type": "AssertionError",
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_mcp_result",
+      "attempt": 1,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 47
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "af57c6102459d7cc446d5f92e03d06074735629f56176581de9f006eb35f071f",
+          "prompt_hash": "d56bdbf04ce427a444e2f397bacd901960fb16ef3f43e390e6c5ead8dadb7a5a",
+          "config_hash": "60c96c6b7e3ec7070137eb9d8b732fff407327624a5a82aef05fe0dd27691e64",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 11.325123,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [],
+            "changed_files": [],
+            "mcp_tools": [
+              "catalog.lookup:completed"
+            ]
+          },
+          "usage": {
+            "input_tokens": 76634,
+            "cached_input_tokens": 59008,
+            "output_tokens": 98
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_mcp_result",
+      "attempt": 2,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 47
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "af57c6102459d7cc446d5f92e03d06074735629f56176581de9f006eb35f071f",
+          "prompt_hash": "d56bdbf04ce427a444e2f397bacd901960fb16ef3f43e390e6c5ead8dadb7a5a",
+          "config_hash": "60c96c6b7e3ec7070137eb9d8b732fff407327624a5a82aef05fe0dd27691e64",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 9.872894,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [],
+            "changed_files": [],
+            "mcp_tools": [
+              "catalog.lookup:completed"
+            ]
+          },
+          "usage": {
+            "input_tokens": 57899,
+            "cached_input_tokens": 51968,
+            "output_tokens": 142
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_mcp_result",
+      "attempt": 3,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 47
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "af57c6102459d7cc446d5f92e03d06074735629f56176581de9f006eb35f071f",
+          "prompt_hash": "d56bdbf04ce427a444e2f397bacd901960fb16ef3f43e390e6c5ead8dadb7a5a",
+          "config_hash": "60c96c6b7e3ec7070137eb9d8b732fff407327624a5a82aef05fe0dd27691e64",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 11.767485,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [],
+            "changed_files": [],
+            "mcp_tools": [
+              "catalog.lookup:completed"
+            ]
+          },
+          "usage": {
+            "input_tokens": 57942,
+            "cached_input_tokens": 54528,
+            "output_tokens": 162
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_skill_artifact",
+      "attempt": 1,
+      "status": "error",
+      "phase": "call",
+      "error_type": "ShellStartupError",
+      "location": {
+        "file": "tasks.py",
+        "line": 62
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "4602c97542a30516ae1c8f0123936eeb9a83908d43010719649a9dd078f6085b",
+          "prompt_hash": "736a335fcf0f1a0f95b85ae3044268ebbf7cec7ee09ad6e30ef35c1d310c200f",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 25.372196,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              -1,
+              0,
+              0
+            ],
+            "changed_files": [
+              "RELEASE.md"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58889,
+            "cached_input_tokens": 52352,
+            "output_tokens": 315
+          },
+          "execution_error": "ShellStartupError"
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [
+        "ShellStartupError"
+      ]
+    },
+    {
+      "case": "tasks.py::test_skill_artifact",
+      "attempt": 2,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 62
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "4602c97542a30516ae1c8f0123936eeb9a83908d43010719649a9dd078f6085b",
+          "prompt_hash": "736a335fcf0f1a0f95b85ae3044268ebbf7cec7ee09ad6e30ef35c1d310c200f",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 19.37622,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "RELEASE.md"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43916,
+            "cached_input_tokens": 40576,
+            "output_tokens": 218
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    },
+    {
+      "case": "tasks.py::test_skill_artifact",
+      "attempt": 3,
+      "status": "passed",
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "tasks.py",
+        "line": 62
+      },
+      "grader_hash": "05b033625b4c6762215d8b52f8b7053440a381149434e45c71e5c9796eef17fb",
+      "runs": [
+        {
+          "input_hash": "4602c97542a30516ae1c8f0123936eeb9a83908d43010719649a9dd078f6085b",
+          "prompt_hash": "736a335fcf0f1a0f95b85ae3044268ebbf7cec7ee09ad6e30ef35c1d310c200f",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "duration_seconds": 17.96679,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "RELEASE.md"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43776,
+            "cached_input_tokens": 38016,
+            "output_tokens": 223
+          },
+          "execution_error": null
+        }
+      ],
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": []
+    }
+  ],
+  "diagnostic_reclassification": {
+    "method": "Post-collection classification from retained command startup events; no new model turns.",
+    "signature": "exit_code=-1 and output starts with Failed to create unified exec process:",
+    "source_report_sha256": "34e70048629d9e1c98e249931e489774b5ce5392c54314547b3faec157a5b9e9",
+    "corrections": [
+      {
+        "case": "tasks.py::test_dependency_declaration",
+        "attempt": 2,
+        "original_status": "failed",
+        "error_type": "ShellStartupError"
+      },
+      {
+        "case": "tasks.py::test_dependency_declaration",
+        "attempt": 3,
+        "original_status": "passed",
+        "error_type": "ShellStartupError"
+      },
+      {
+        "case": "tasks.py::test_fix_average",
+        "attempt": 2,
+        "original_status": "failed",
+        "error_type": "ShellStartupError"
+      },
+      {
+        "case": "tasks.py::test_preserve_legacy",
+        "attempt": 1,
+        "original_status": "passed",
+        "error_type": "ShellStartupError"
+      },
+      {
+        "case": "tasks.py::test_skill_artifact",
+        "attempt": 1,
+        "original_status": "passed",
+        "error_type": "ShellStartupError"
+      }
+    ]
+  },
+  "acceptance_annotation": {
+    "source": "luna-live.json",
+    "source_sha256": "8119407b481efe1841d7a4ba4d61d3bc136fd67d7da29a421d87f14645eb00b8",
+    "method": "Add task acceptance from existing explicit diagnostic_reclassification.original_status; no event, observation or conservative status changed.",
+    "source_encoding": "UTF-8 with LF line endings"
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-23T00:58:42.309828+00:00",
+  "context": {
+    "python": "3.13.14",
+    "platform": "win32",
+    "plugin_version": "0.3.0",
+    "recording_set": "luna-verified-20261023"
+  },
+  "attempts": [
+    {
+      "case": "verified_edits.py::test_verified_average_edit",
+      "attempt": 1,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 21
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "dd7f29325562bf8e492bdf40a6cb905dd4e77690fc0ddbfaf24e35ead3fdbc21",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 21.05542,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "mathx.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58654,
+            "cached_input_tokens": 52096,
+            "output_tokens": 448
+          }
+        }
+      ]
+    },
+    {
+      "case": "verified_edits.py::test_verified_average_edit",
+      "attempt": 2,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 21
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "dd7f29325562bf8e492bdf40a6cb905dd4e77690fc0ddbfaf24e35ead3fdbc21",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 20.005284,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0,
+              0
+            ],
+            "changed_files": [
+              "mathx.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58767,
+            "cached_input_tokens": 52224,
+            "output_tokens": 460
+          }
+        }
+      ]
+    },
+    {
+      "case": "verified_edits.py::test_verified_average_edit",
+      "attempt": 3,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 21
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "6df91c516ee1f1138fcc8b47ee3a8c823a7a53b781ae7747076667bdf403515d",
+          "prompt_hash": "dd7f29325562bf8e492bdf40a6cb905dd4e77690fc0ddbfaf24e35ead3fdbc21",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 20.42382,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0,
+              0
+            ],
+            "changed_files": [
+              "mathx.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58710,
+            "cached_input_tokens": 54784,
+            "output_tokens": 531
+          }
+        }
+      ]
+    },
+    {
+      "case": "verified_edits.py::test_verified_greeting_edit",
+      "attempt": 1,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 32
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "c204f2805cb3d98e5e8802fd38c757f9f8b66db2bd27aa27f0e549d7451d70bb",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 21.088714,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0,
+              0
+            ],
+            "changed_files": [
+              "app.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58504,
+            "cached_input_tokens": 49792,
+            "output_tokens": 392
+          }
+        }
+      ]
+    },
+    {
+      "case": "verified_edits.py::test_verified_greeting_edit",
+      "attempt": 2,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 32
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "c204f2805cb3d98e5e8802fd38c757f9f8b66db2bd27aa27f0e549d7451d70bb",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 24.668193,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "app.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 43769,
+            "cached_input_tokens": 37760,
+            "output_tokens": 337
+          }
+        }
+      ]
+    },
+    {
+      "case": "verified_edits.py::test_verified_greeting_edit",
+      "attempt": 3,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "verified_edits.py",
+        "line": 32
+      },
+      "grader_hash": "44a2ec9f62da734b3f41415ee9814833e620fd80c13dedf55270a5df3f6a5240",
+      "runs": [
+        {
+          "input_hash": "c31dfb08cbc455687766828e406d4c541b044542106876db2d91b8f162c9471b",
+          "prompt_hash": "c204f2805cb3d98e5e8802fd38c757f9f8b66db2bd27aa27f0e549d7451d70bb",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6-luna",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 19.052966,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "changed_files": [
+              "app.py"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 58630,
+            "cached_input_tokens": 52096,
+            "output_tokens": 419
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 """Historical pilot outcomes must replay faithfully without a Codex executable."""
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -16,7 +17,8 @@ PILOT = ROOT / "examples/regression"
 
 
 @pytest.mark.parametrize(
-    "cohort,model,exit_code", [("luna", "gpt-6-luna", 1), ("sol", "gpt-6.1-sol", 0)]
+    "cohort,model,exit_code",
+    [("luna", "gpt-6-luna", 1), ("sol", "gpt-6.1-sol", 0), ("luna-verified", "gpt-6-luna", 0)],
 )
 def test_pilot_reproduces_all_observed_outcomes(tmp_path, cohort, model, exit_code):
     output = tmp_path / "replayed.json"
@@ -26,7 +28,7 @@ def test_pilot_reproduces_all_observed_outcomes(tmp_path, cohort, model, exit_co
             "-m",
             "pytest",
             "-c",
-            str(PILOT / "pytest.ini"),
+            str(PILOT / ("verified.ini" if cohort == "luna-verified" else "pytest.ini")),
             str(PILOT),
             "--codex-bin=not-installed",
             f"--codex-model={model}",
@@ -60,3 +62,30 @@ def test_immutable_cassette_publish_refuses_a_concurrent_winner(tmp_path):
         save_cassette(target, "key", Run([], tmp_path), "test", overwrite=False)
     assert target.read_text(encoding="utf-8") == "preserve competing evidence"
     assert not list(tmp_path.glob(".cassette-*"))
+
+
+def test_annotations_preserve_original_evidence_and_portable_source_hashes():
+    annotated = []
+    for cohort in ("luna", "sol"):
+        source = (PILOT / "results" / f"{cohort}-live.json").read_text(encoding="utf-8")
+        original = json.loads(source)
+        report = json.loads(
+            (PILOT / "results" / f"{cohort}-annotated.json").read_text(encoding="utf-8")
+        )
+        assert (
+            report["acceptance_annotation"]["source_sha256"]
+            == hashlib.sha256(source.encode()).hexdigest()
+        )
+        corrections = {
+            (r["case"], r["attempt"]): r
+            for r in original["diagnostic_reclassification"]["corrections"]
+        }
+        for before, after in zip(original["attempts"], report["attempts"]):
+            assert all(after[key] == value for key, value in before.items())
+            expected = corrections.get((before["case"], before["attempt"]), {}).get(
+                "original_status", before["status"]
+            )
+            assert after["task_status"] == expected
+        annotated.append(report)
+    saved = json.loads((PILOT / "results/comparison-annotated.json").read_text(encoding="utf-8"))
+    assert saved == compare_reports(*annotated)

@@ -1,0 +1,152 @@
+{
+  "created_at": "2026-10-23T00:57:31.762971+00:00",
+  "cli": "codex-cli 0.163.0",
+  "model_calls": 0,
+  "sandbox": "elevated/workspace-write",
+  "attempts": [
+    {
+      "mode": "serial",
+      "index": 1,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.408
+    },
+    {
+      "mode": "serial",
+      "index": 2,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.238
+    },
+    {
+      "mode": "serial",
+      "index": 3,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.278
+    },
+    {
+      "mode": "serial",
+      "index": 4,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.418
+    },
+    {
+      "mode": "concurrent",
+      "index": 1,
+      "passed": false,
+      "returncode": 1,
+      "error_1326": true,
+      "file_verified": false,
+      "seconds": 7.643
+    },
+    {
+      "mode": "concurrent",
+      "index": 2,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 7.23
+    },
+    {
+      "mode": "concurrent",
+      "index": 3,
+      "passed": false,
+      "returncode": 1,
+      "error_1326": true,
+      "file_verified": false,
+      "seconds": 7.846
+    },
+    {
+      "mode": "concurrent",
+      "index": 4,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 7.194
+    },
+    {
+      "mode": "serial",
+      "index": 5,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.522
+    },
+    {
+      "mode": "serial",
+      "index": 6,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.326
+    },
+    {
+      "mode": "serial",
+      "index": 7,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.3
+    },
+    {
+      "mode": "serial",
+      "index": 8,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 4.429
+    },
+    {
+      "mode": "concurrent",
+      "index": 5,
+      "passed": false,
+      "returncode": 1,
+      "error_1326": true,
+      "file_verified": false,
+      "seconds": 7.817
+    },
+    {
+      "mode": "concurrent",
+      "index": 6,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 7.377
+    },
+    {
+      "mode": "concurrent",
+      "index": 7,
+      "passed": false,
+      "returncode": 1,
+      "error_1326": true,
+      "file_verified": false,
+      "seconds": 7.752
+    },
+    {
+      "mode": "concurrent",
+      "index": 8,
+      "passed": true,
+      "returncode": 0,
+      "error_1326": false,
+      "file_verified": true,
+      "seconds": 7.007
+    }
+  ]
+}

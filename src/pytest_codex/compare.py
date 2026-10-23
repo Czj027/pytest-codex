@@ -31,6 +31,12 @@ def _indexed(report):
         ):
             raise ValueError("Invalid attempt row")
         key = row["case"], row["attempt"]
+        if row.get("task_status", row["status"]) not in STATUSES:
+            raise ValueError("Invalid task acceptance status")
+        if not isinstance(row.get("execution_errors", []), list) or any(
+            not isinstance(error, str) or not error for error in row.get("execution_errors", [])
+        ):
+            raise ValueError("Invalid execution errors")
         if key in rows:
             raise ValueError("Duplicate case/attempt")
         if not row["runs"] and row["status"] in {"passed", "failed"}:
@@ -57,14 +63,25 @@ def _indexed(report):
     return rows
 
 
+def _execution_errors(row):
+    return sorted(
+        set(row.get("execution_errors", []))
+        | {run["execution_error"] for run in row["runs"] if run.get("execution_error")}
+    )
+
+
 def _counts(rows):
     counts = {status: 0 for status in sorted(STATUSES)}
-    counts.update(Counter(row["status"] for row in rows))
+    counts.update(Counter("error" if _execution_errors(row) else row["status"] for row in rows))
+    task_outcomes = {status: 0 for status in sorted(STATUSES)}
+    task_outcomes.update(Counter(row.get("task_status", row["status"]) for row in rows))
     completed = counts["passed"] + counts["failed"]
     return {
         **counts,
         "completed": completed,
         "rate": counts["passed"] / completed if completed else None,
+        "task_outcomes": task_outcomes,
+        "execution_error_attempts": sum(bool(_execution_errors(row)) for row in rows),
     }
 
 
@@ -141,6 +158,10 @@ def compare_reports(baseline, candidate, *, factor="model"):
                         "candidate": y["status"],
                         "baseline_error": x.get("error_type"),
                         "candidate_error": y.get("error_type"),
+                        "baseline_task_status": x.get("task_status", x["status"]),
+                        "candidate_task_status": y.get("task_status", y["status"]),
+                        "baseline_execution_errors": _execution_errors(x),
+                        "candidate_execution_errors": _execution_errors(y),
                         "baseline_behavior": [run.get("behavior", {}) for run in x["runs"]],
                         "candidate_behavior": [run.get("behavior", {}) for run in y["runs"]],
                     }
@@ -198,6 +219,24 @@ def render_markdown(result):
         "",
         "Times include invocation/recording overhead. Token counters are not an API invoice.",
         "",
+        "## Task acceptance and execution health",
+        "",
+        "Acceptance includes recovered/contaminated turns; it is not the clean comparison score above.",
+        "Older reports without task_status retain their conservative status (no recovered result is invented).",
+        "",
+        "| Task | Cohort | Accepted | Rejected | Grader/setup error | Skipped | Execution-error turns |",
+        "|---|---|---:|---:|---:|---:|---:|",
+    ]
+    for row in result["cases"]:
+        for label in ("baseline", "candidate"):
+            counts = row[label]
+            task = counts["task_outcomes"]
+            lines.append(
+                f"| {cell(row['case'])} | {label} | {task['passed']} | {task['failed']} | "
+                f"{task['error']} | {task['skipped']} | {counts['execution_error_attempts']} |"
+            )
+    lines += [
+        "",
         "## Per-attempt observations",
         "",
     ]
@@ -207,6 +246,11 @@ def render_markdown(result):
             lines.append(
                 f"- Attempt {item['attempt']}: {item['baseline']} → {item['candidate']}"
                 f" (error types: {cell(item['baseline_error'])} / {cell(item['candidate_error'])})."
+            )
+            lines.append(
+                f"  Task acceptance: {item['baseline_task_status']} → {item['candidate_task_status']}; "
+                f"execution errors: {cell(item['baseline_execution_errors'])} / "
+                f"{cell(item['candidate_execution_errors'])}."
             )
         lines.append("")
     return "\n".join(lines) + "\n"

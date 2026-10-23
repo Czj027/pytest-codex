@@ -77,3 +77,27 @@ def test_mcp_oracle_checks_result_not_just_tool_presence(tmp_path):
     item["result"]["isError"] = True
     with pytest.raises(AssertionError, match="server returned an error"):
         acceptance.mcp_lookup(make_run())
+
+
+@pytest.mark.parametrize(
+    "task,fixture,grader",
+    [
+        ("test_fix_average", "bugfix", acceptance.bugfix),
+        ("test_preserve_legacy", "protected", acceptance.protected_region),
+    ],
+)
+def test_actual_echoed_script_and_success_claim_do_not_pass_acceptance(
+    tmp_path, task, fixture, grader
+):
+    """Replay the actual failures: every command exited zero, but none edited code."""
+    directory = FIXTURES.parent / "cassettes/luna-20261023"
+    path = next(directory.rglob(f"{task}-*-attempt-3-call-1.json"))
+    data = json.loads(path.read_text(encoding="utf-8"))
+    target = tmp_path / fixture
+    shutil.copytree(FIXTURES / fixture, target)
+    run = Run(data["events"], target, Diff.from_dict(data["diff"]), data["returncode"])
+    assert run.succeeded and run.commands and all(command.ok for command in run.commands)
+    assert "Updated" in run.final_message and not run.changed_files
+    assert any(command.command.lstrip().startswith("@'") for command in run.commands)
+    with pytest.raises(AssertionError, match="Bug was not fixed|independent acceptance"):
+        grader(run)

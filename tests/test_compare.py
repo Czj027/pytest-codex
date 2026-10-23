@@ -66,6 +66,28 @@ def test_errors_and_skips_are_not_model_failures_or_apparent_improvements():
     assert row["direction"] == "inconclusive" and row["rate_delta"] is None
 
 
+def test_acceptance_is_visible_without_hiding_execution_contamination():
+    candidate = report("after", ("error", "failed", "passed"))
+    candidate["attempts"][0].update(task_status="passed", execution_errors=["ShellStartupError"])
+    candidate["attempts"][0]["runs"][0]["execution_error"] = "ShellStartupError"
+    result = compare_reports(report(), candidate)
+    row = result["cases"][0]
+    assert row["candidate"]["task_outcomes"] == {"passed": 2, "failed": 1, "error": 0, "skipped": 0}
+    assert row["candidate"]["execution_error_attempts"] == 1
+    assert row["direction"] == "inconclusive"
+    assert row["attempts"][0]["candidate_task_status"] == "passed"
+    assert "Task acceptance" in render_markdown(result)
+
+
+def test_execution_flag_cannot_be_hidden_by_a_passed_summary_status():
+    candidate = report("after")
+    candidate["attempts"][0].update(task_status="passed", execution_errors=["ShellStartupError"])
+    row = compare_reports(report(), candidate)["cases"][0]
+    assert row["candidate"]["error"] == 1
+    assert row["candidate"]["task_outcomes"]["passed"] == 2
+    assert row["direction"] == "inconclusive"
+
+
 @pytest.mark.parametrize(
     "field",
     ["input_hash", "prompt_hash", "config_hash", "sandbox", "isolation", "timeout", "cli_version"],
