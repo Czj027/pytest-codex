@@ -15,6 +15,11 @@ def remove_tree(path: Path, owner: Path) -> None:
         raise ValueError("cleanup target must be an owned subdirectory")
 
     def readonly(function, name, error):
+        # Git maintenance may remove a scanned lock before older rmtree versions
+        # unlink it. Missing descendants already satisfy cleanup; a missing root
+        # still indicates an invalid target and must be reported.
+        if isinstance(error[1], FileNotFoundError) and Path(name) != native_path(resolved):
+            return
         if not isinstance(error[1], PermissionError):
             raise error[1]
         os.chmod(name, stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)

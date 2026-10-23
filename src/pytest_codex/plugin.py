@@ -7,16 +7,19 @@ import inspect
 import math
 import os
 import re
+import time
 import uuid
 from pathlib import Path
 
 import pytest
 
+from . import results
 from .cassette import cassette_key, check_cli_version, load_cassette, save_cassette
 from .cleanup import remove_tree
+from .paths import native_path
 from .runner import cli_version, execute
 from .sandbox import make_sandbox
-from .snapshot import snapshot
+from .snapshot import snapshot, tree_hash
 
 
 def pytest_addoption(parser):
@@ -31,6 +34,8 @@ def pytest_addoption(parser):
     group.addoption("--codex-live", action="store_true", help="alias for --codex-mode=live")
     group.addoption("--codex-bin", default="codex", help="Codex CLI executable")
     group.addoption("--codex-model", default=None, help="model passed to Codex")
+    group.addoption("--codex-recording-set", default=None, help="isolated named cassette set")
+    group.addoption("--codex-results", default=None, help="write new per-attempt JSON results")
     group.addoption(
         "--codex-cli-version", default=None, help="expected recording CLI version (offline check)"
     )
@@ -44,9 +49,16 @@ def pytest_addoption(parser):
     parser.addini("codex_timeout", "timeout in seconds for each execution", default="300")
     parser.addini("codex_cli_version", "expected CLI version for recording/replay", default="")
     parser.addini("codex_model", "explicit model, overridden by --codex-model or exec", default="")
+    parser.addini(
+        "codex_grader_files",
+        "additional trusted acceptance files relative to pytest root",
+        type="linelist",
+        default=[],
+    )
 
 
 def pytest_configure(config):
+    results.configure(config)
     config.addinivalue_line(
         "markers",
         "codex(runs=1, pass_rate=1.0, project=None): repeat a synchronous test with a required passing fraction",
@@ -80,6 +92,8 @@ def marker_settings(item):
 
 def pytest_collection_modifyitems(items):
     for item in items:
+        if item.config._codex_result_path is not None and "codex" in item.fixturenames:
+            item._codex_grader_hash = results.grader_hash(item)
         if item.get_closest_marker("codex"):
             marker_settings(item)
             if inspect.iscoroutinefunction(item.obj):
@@ -101,6 +115,7 @@ class Codex:
         self._call = 0
         self._total_calls = 0
         self._version = None
+        self._result_calls = []
 
     def exec(
         self,
@@ -148,42 +163,81 @@ class Codex:
                 check_cli_version(self._version, expected_version)
             expected_version = self._version
         isolation = settings.getini("codex_isolation")
-        key = cassette_key(prompt, model, config or {}, sandbox, snapshot(root), isolation)
+        inputs = snapshot(root)
+        key = cassette_key(prompt, model, config or {}, sandbox, inputs, isolation)
         node = self.request.node
         module = Path(str(node.path)).relative_to(settings.rootpath).as_posix()
         test_name = node.nodeid.split("::", 1)[-1]
         runs, _ = marker_settings(node)
         suffix = f"-attempt-{self.attempt}" if runs > 1 else ""
         suffix += f"-call-{self._call}"
-        path = (
-            Path(str(node.path)).parent
-            / "cassettes"
-            / _slug(module)
-            / (_slug(test_name) + suffix + ".json")
-        )
+        directory = Path(str(node.path)).parent / "cassettes"
+        selected_set = settings.getoption("codex_recording_set")
+        if selected_set is not None:
+            directory = directory / selected_set
+        path = directory / _slug(module) / (_slug(test_name) + suffix + ".json")
         mode = settings.getoption("codex_mode")
         if settings.getoption("codex_record"):
             mode = "record"
         elif settings.getoption("codex_live"):
             mode = "live"
-        if mode == "replay" or mode == "auto" and path.exists():
-            return load_cassette(path, key, root, expected_version=expected_version)
-        if (mode in {"record", "auto"} or expected_version) and self._version is None:
-            self._version = cli_version(binary)
-        if expected_version is not None:
-            check_cli_version(self._version, expected_version)
-        run = execute(
-            prompt,
-            root,
-            codex_bin=binary,
-            model=model,
-            sandbox=sandbox,
-            config=config,
-            isolation=isolation,
-            timeout=float(settings.getini("codex_timeout")) if timeout is None else timeout,
-        )
-        if mode in {"record", "auto"}:
-            save_cassette(path, key, run, self._version)
+        if selected_set is not None and mode == "record" and native_path(path).exists():
+            raise FileExistsError(
+                "Named recording already exists; choose a new --codex-recording-set"
+            )
+        started = time.perf_counter()
+        if mode == "replay" or mode == "auto" and native_path(path).exists():
+            run = load_cassette(path, key, root, expected_version=expected_version)
+        else:
+            if (
+                mode in {"record", "auto"} or expected_version or settings._codex_result_path
+            ) and self._version is None:
+                self._version = cli_version(binary)
+            if expected_version is not None:
+                check_cli_version(self._version, expected_version)
+            run = execute(
+                prompt,
+                root,
+                codex_bin=binary,
+                model=model,
+                sandbox=sandbox,
+                config=config,
+                isolation=isolation,
+                timeout=float(settings.getini("codex_timeout")) if timeout is None else timeout,
+            )
+            if mode in {"record", "auto"}:
+                save_cassette(path, key, run, self._version, overwrite=selected_set is None)
+        if settings._codex_result_path is not None:
+            self._result_calls.append(
+                {
+                    "input_hash": tree_hash(inputs),
+                    "prompt_hash": results.digest(prompt),
+                    "config_hash": results.digest(config or {}),
+                    "sandbox": sandbox,
+                    "isolation": isolation,
+                    "model": model,
+                    "cli_version": self._version or expected_version,
+                    "replayed": run.replayed,
+                    "succeeded": run.succeeded,
+                    "execution_error": results.execution_error(run),
+                    "duration_seconds": round(time.perf_counter() - started, 6),
+                    "timeout": float(settings.getini("codex_timeout"))
+                    if timeout is None
+                    else timeout,
+                    "behavior": {
+                        "command_exits": [command.exit_code for command in run.commands],
+                        "changed_files": run.changed_files,
+                        "mcp_tools": [
+                            f"{call.server}.{call.tool}:{call.status}" for call in run.mcp_calls
+                        ],
+                    },
+                    "usage": {
+                        "input_tokens": run.usage.input_tokens,
+                        "cached_input_tokens": run.usage.cached_input_tokens,
+                        "output_tokens": run.usage.output_tokens,
+                    },
+                }
+            )
         return run
 
 
@@ -222,12 +276,25 @@ def pytest_pyfunc_call(pyfuncitem):
         if factory is not None:
             factory.attempt = attempt
             factory._call = 0
+            factory._result_calls = []
         try:
             result = pyfuncitem.obj(**arguments)
             if result is not None:
                 raise TypeError("codex-marked tests must return None")
+        except pytest.xfail.Exception:
+            results.record_case(pyfuncitem, factory, "skipped", "XFailed")
+            raise
         except (AssertionError, pytest.fail.Exception) as exc:
             failures.append(f"attempt {attempt}: {exc}")
+            results.record_case(pyfuncitem, factory, "failed", type(exc).__name__)
+        except pytest.skip.Exception:
+            results.record_case(pyfuncitem, factory, "skipped", "Skipped")
+            raise
+        except Exception as exc:
+            results.record_case(pyfuncitem, factory, "error", type(exc).__name__)
+            raise
+        else:
+            results.record_case(pyfuncitem, factory, "passed")
     passed = runs - len(failures)
     summary = f"{pyfuncitem.nodeid}: {passed}/{runs} ({passed / runs:.1%}), required {required:.1%}"
     pyfuncitem.config._codex_rates.append(summary)
@@ -235,6 +302,33 @@ def pytest_pyfunc_call(pyfuncitem):
     if passed / runs < required:
         pytest.fail(summary + "\n" + "\n".join(failures), pytrace=False)
     return True
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    if item.config._codex_result_path is None or "codex" not in item.fixturenames:
+        return
+    factory = item.funcargs.get("codex")
+    error_type = call.excinfo.type.__name__ if call.excinfo is not None else None
+    if report.when == "setup" and (report.failed or report.skipped):
+        results.record_case(
+            item, factory, "skipped" if report.skipped else "error", error_type, "setup"
+        )
+    elif report.when == "call" and not getattr(item, "_codex_exported", False):
+        status = "passed" if report.passed else "skipped" if report.skipped else "failed"
+        if report.failed and error_type not in {"AssertionError", "Failed"}:
+            status = "error"
+        results.record_case(item, factory, status, error_type)
+    elif report.when == "teardown" and report.failed:
+        for row in item.config._codex_results["attempts"]:
+            if row["case"] == results.case_id(item):
+                row.update(status="error", phase="teardown", error_type=error_type)
+
+
+def pytest_sessionfinish(session):
+    results.finish(session.config)
 
 
 def pytest_terminal_summary(terminalreporter):
