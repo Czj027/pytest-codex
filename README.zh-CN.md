@@ -2,6 +2,10 @@
 
 **0.3.0** 新增[真实任务回归对比](docs/regression.md)，已在 [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) 和 GitHub 发布。
 
+**0.4.0 开发版**加入[桌面端支持](docs/desktop.md)：导入明确指定的桌面会话轮次，
+不新增模型调用；也可显式选择桌面版附带引擎进行真实录制。需从当前源码安装，
+PyPI 0.3.0 尚不含这些接口。导入结果只保留历史事件，不重建文件状态，不自动扫描私聊。
+
 [![PyPI](https://img.shields.io/pypi/v/pytest-codex)](https://pypi.org/project/pytest-codex/)
 [![Tests](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml/badge.svg)](https://github.com/Czj027/pytest-codex/actions/workflows/tests.yml)
 [![Python](https://img.shields.io/pypi/pyversions/pytest-codex)](https://pypi.org/project/pytest-codex/)

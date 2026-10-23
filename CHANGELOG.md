@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 — Unreleased
+
+- Import explicitly selected Codex Desktop turns as historical event-only `Run`
+  objects, with command/MCP assertions and attributed per-turn usage.
+- Export opt-in observations for offline tests, omitting instructions/reasoning
+  and keeping missing file-state and incomplete coverage explicit.
+- Add `--codex-desktop` for explicit bundled-engine selection; replay remains
+  offline, with existing execution isolation and no automatic login migration.
+- Include a synthetic desktop example and local format/installation boundaries.
+
 ## 0.3.0 — 2026-10-23
 
 - Tolerate already-removed descendant files during owned-tree cleanup on older

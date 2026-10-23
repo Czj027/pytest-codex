@@ -22,6 +22,12 @@ is included and passes offline.*
 **0.3.0** adds [fresh task regression comparisons](docs/regression.md), available
 from [PyPI](https://pypi.org/project/pytest-codex/0.3.0/) and the GitHub release.
 
+The **0.4.0 development branch** adds [Codex Desktop support](docs/desktop.md):
+import a selected historical turn without a new model call, or explicitly use
+the desktop-bundled engine for live/record. Install this checkout to try it;
+PyPI 0.3.0 does not include these APIs. Imported logs are event-only observations,
+with no reconstructed file state or automatic history scanning.
+
 ## Start with one test
 
 ```console
