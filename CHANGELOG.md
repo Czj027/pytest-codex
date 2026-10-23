@@ -2,6 +2,9 @@
 
 ## 0.3.0 — candidate
 
+- Tolerate already-removed descendant files during owned-tree cleanup on older
+  Python versions, while preserving ownership checks and missing-root errors.
+
 - Add immutable named recording sets and opt-in per-attempt JSON results.
 - Compare matched fresh model or CLI observations with separate task failures,
   execution/grader errors and skips; reject replay and changed task contracts.
