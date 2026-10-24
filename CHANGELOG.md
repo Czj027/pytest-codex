@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add one separately recorded goal-only AGENTS.md dependency example and strict
+  command acceptance; retain every published recording and regression report.
+- Distinguish prompt-assisted task acceptance from unprompted project-rule
+  behavior observations, without claiming direct file-receipt instrumentation.
+
 ## 0.4.0 — 2026-10-23
 
 - Add `pytest-codex-panel --project .`: a capability-protected loopback browser

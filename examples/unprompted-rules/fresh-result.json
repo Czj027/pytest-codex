@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "created_at": "2026-10-24T03:44:44.068602+00:00",
+  "context": {
+    "python": "3.13.14",
+    "platform": "win32",
+    "plugin_version": "0.4.0",
+    "recording_set": null
+  },
+  "attempts": [
+    {
+      "case": "examples/test_unprompted_rules.py::test_dependency_follows_unprompted_project_rules",
+      "attempt": 1,
+      "status": "passed",
+      "task_status": "passed",
+      "task_error_type": null,
+      "execution_errors": [],
+      "phase": "call",
+      "error_type": null,
+      "location": {
+        "file": "examples/test_unprompted_rules.py",
+        "line": 23
+      },
+      "grader_hash": "6796707408e928c430cc28d8f5ba99035f2dce93557fbfeb765d8dfa69801bd8",
+      "runs": [
+        {
+          "input_hash": "9ab60f5968ebea937ffd0685fe9fb3b3814fda23c7477a94577705e8839e53cb",
+          "prompt_hash": "1b2dd77122b5bbf16792681456574ceecdfe137ed70a12569487bed7fc2fc5d4",
+          "config_hash": "8a72c132bcc47a8953a3d0c0be8effc34ee23be9c521e9e58db368c906103c4b",
+          "sandbox": "workspace-write",
+          "isolation": "full",
+          "model": "gpt-6.1-sol",
+          "cli_version": "codex-cli 0.163.0",
+          "replayed": false,
+          "succeeded": true,
+          "execution_error": null,
+          "duration_seconds": 17.434366,
+          "timeout": 300.0,
+          "behavior": {
+            "command_exits": [
+              0,
+              0
+            ],
+            "changed_files": [
+              "pyproject.toml"
+            ],
+            "mcp_tools": []
+          },
+          "usage": {
+            "input_tokens": 30505,
+            "cached_input_tokens": 24832,
+            "output_tokens": 138
+          }
+        }
+      ]
+    }
+  ]
+}
