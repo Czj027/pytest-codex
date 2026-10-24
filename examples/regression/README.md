@@ -12,6 +12,25 @@ not a model leaderboard. [Full guide](../../docs/regression.md).
 | MCP lookup | Exact tool/arguments/result, returned value in answer, no shell substitution |
 | Skill artifact | Exact release content, unchanged input and no dependency operations |
 
+### Prompt-assisted acceptance, not isolated instruction receipt
+
+`test_dependency_declaration` explicitly requests `uv add --frozen` and its other
+flags in the task prompt. Its success is **prompt-assisted task acceptance**;
+the AGENTS.md input repeats the uv convention, so this case alone cannot isolate
+instruction-file receipt. The older `examples/test_conventions.py` has the same
+prompt assistance. Do not infer missing guidance from a failed task or startup
+error without another observation.
+
+Separate examples exercise **unprompted instruction-file receipt/following**:
+`examples/test_project_rules.py` asks only for a release checklist, and
+`examples/test_unprompted_rules.py` states a dependency goal without `uv` or `pip`
+in its prompt. Exact outputs or tool/flag rules come only from their AGENTS.md
+inputs. This removes explicit prompt hints; it is behavioral evidence, not direct
+proof of reading a file or a matched causal ablation. The new single observation
+is outside the original 30+6 pilot and does not replace any failures or reports.
+See [recorded evidence](../../docs/evidence.md#task-acceptance-versus-instruction-file-evidence)
+and [issue #4](https://github.com/Czj027/pytest-codex/issues/4).
+
 `acceptance.py` and the tests remain outside every copied task input. The
 configuration includes the acceptance helper in the report's grader fingerprint.
 Tasks are synthetic, public and nonsecret. Only reviewed generated code is run

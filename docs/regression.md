@@ -75,6 +75,25 @@ MCP tool names are included. Parameter IDs in exported case names are hashed:
 pytest's default IDs can otherwise contain an entire prompt. Module/function names
 and relative filenames remain readable; review reports and recordings before publishing.
 
+## What instruction-following evidence means
+
+The included pilot's `test_dependency_declaration` and the earlier
+`examples/test_conventions.py` explicitly request `uv add` and its command flags
+in their prompts. Treat those as **prompt-assisted task acceptance**, not an
+isolated test of AGENTS.md receipt. Task failures and execution-health errors
+also do not, by themselves, establish that instructions were absent or ignored.
+
+For separate **unprompted instruction-file receipt/following observations**, see
+the exact-JSON checklist in `examples/test_project_rules.py` and the
+[goal-only dependency example](../examples/test_unprompted_rules.py). The latter
+puts all command/flag requirements only in its AGENTS.md input; the task prompt
+contains neither `uv` nor `pip`. These remove the explicit tool/answer hint from
+the prompt, but do not directly instrument file reading or supply a matched
+no-AGENTS causal control. They are not a new model-comparison cohort.
+
+[Evidence and limitations](evidence.md#task-acceptance-versus-instruction-file-evidence)
+describe the boundary. All original pilot recordings and reports remain intact.
+
 ## Compare one change at a time
 
 ```console
